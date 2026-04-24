@@ -62,11 +62,11 @@ export function Header() {
         </nav>
 
         <a
-          href="tel:+576000000"
+          href="tel:+576063865320"
           className="hidden items-center gap-2 rounded-full bg-gradient-brand px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-105 lg:flex"
         >
           <Phone className="h-4 w-4" />
-          Línea 24/7
+          (606) 386 5320
         </a>
 
         <button
@@ -92,10 +92,10 @@ export function Header() {
               </Link>
             ))}
             <a
-              href="tel:+576000000"
+              href="tel:+576063865320"
               className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-gradient-brand px-4 py-3 text-sm font-semibold text-white"
             >
-              <Phone className="h-4 w-4" /> Línea 24/7
+              <Phone className="h-4 w-4" /> (606) 386 5320
             </a>
           </nav>
         </div>

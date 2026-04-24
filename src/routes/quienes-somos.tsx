@@ -1,35 +1,36 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/PageHero";
 import { useReveal } from "@/hooks/useReveal";
-import { Target, Eye, Heart, Sparkles, ShieldCheck, Users } from "lucide-react";
+import { Target, Eye, HandHeart, Scale, Users, Handshake, HeartHandshake } from "lucide-react";
 
 export const Route = createFileRoute("/quienes-somos")({
   head: () => ({
     meta: [
       { title: "Quiénes somos — Clínica Noé" },
-      { name: "description", content: "Conoce nuestra misión, visión y valores. Más de 25 años cuidando vidas con excelencia." },
+      { name: "description", content: "Direccionamiento estratégico de Clínica Noé: misión, visión y valores corporativos." },
       { property: "og:title", content: "Quiénes somos — Clínica Noé" },
-      { property: "og:description", content: "Misión, visión y valores que guían nuestra atención médica." },
+      { property: "og:description", content: "Misión, visión y valores corporativos que guían nuestra atención médica." },
     ],
   }),
   component: QuienesSomos,
 });
 
 const values = [
-  { icon: Heart, title: "Calidez humana", desc: "Trato cercano y empático en cada interacción." },
-  { icon: ShieldCheck, title: "Seguridad", desc: "Protocolos estrictos para tu protección." },
-  { icon: Sparkles, title: "Excelencia", desc: "Mejora continua en todos nuestros procesos." },
-  { icon: Users, title: "Trabajo en equipo", desc: "Colaboración multidisciplinaria por tu bienestar." },
+  { icon: Users, title: "Solidaridad", desc: "Apoyamos a nuestros pacientes y colaboradores con sentido humano." },
+  { icon: Scale, title: "Integridad", desc: "Actuamos con coherencia, ética y transparencia en cada acción." },
+  { icon: Handshake, title: "Respeto", desc: "Reconocemos la dignidad y los derechos de cada persona." },
+  { icon: HeartHandshake, title: "Compromiso", desc: "Trabajamos cada día por el bienestar y la confianza de quienes nos eligen." },
+  { icon: HandHeart, title: "Vocación de Servicio", desc: "Servimos con entrega, calidez y empatía a nuestros pacientes." },
 ];
 
 function QuienesSomos() {
   return (
     <>
       <PageHero
-        eyebrow="Quiénes somos"
-        title="Una historia de"
-        accent="cuidado y compromiso"
-        description="Más de 25 años brindando atención médica integral con calidez humana, tecnología de vanguardia y un equipo comprometido con la vida."
+        eyebrow="Direccionamiento estratégico"
+        title="Quiénes"
+        accent="somos"
+        description="Conoce el direccionamiento estratégico que guía a Clínica Noé: nuestra misión, visión y valores corporativos."
       />
 
       <Intro />
@@ -48,10 +49,10 @@ function Intro() {
           Nuestra esencia
         </span>
         <h2 className={`mt-5 text-4xl md:text-5xl ${visible ? "animate-fade-in-up delay-100" : "opacity-0"}`}>
-          Cuidamos lo que <span className="text-gradient-brand">más amas</span>
+          Una atención <span className="text-gradient-brand">humanizada</span> de mediana y alta complejidad
         </h2>
         <p className={`mt-6 text-lg leading-relaxed text-muted-foreground ${visible ? "animate-fade-in-up delay-200" : "opacity-0"}`}>
-          Clínica Noé es una institución de salud privada comprometida con ofrecer una atención médica integral, segura y humanizada. Combinamos la experiencia de nuestros especialistas con tecnología de vanguardia para brindar la mejor experiencia a nuestros pacientes y sus familias.
+          Clínica Noé es una institución de salud comprometida con la prestación de servicios de mediana y alta complejidad, enfocada en el mejoramiento continuo y en construir relaciones de confianza con nuestros clientes y pacientes.
         </p>
       </div>
     </section>
@@ -70,9 +71,9 @@ function MissionVision() {
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-brand text-white shadow-brand">
               <Target className="h-8 w-8" />
             </div>
-            <h3 className="mt-6 text-3xl">Misión</h3>
+            <h3 className="mt-6 text-3xl">Nuestra Misión</h3>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              Brindar atención médica integral, segura y humanizada a nuestros pacientes, mediante un equipo de profesionales altamente calificados y tecnología de vanguardia, contribuyendo al bienestar de la comunidad y al desarrollo de la salud.
+              Brindar servicios de salud de mediana y alta complejidad con una atención humanizada, segura y oportuna, enfocados al mejoramiento continuo para así crear relaciones de confianza con nuestros clientes y pacientes.
             </p>
           </div>
         </div>
@@ -84,9 +85,9 @@ function MissionVision() {
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-[#267794] shadow-brand">
               <Eye className="h-8 w-8" />
             </div>
-            <h3 className="mt-6 text-3xl !text-white">Visión</h3>
+            <h3 className="mt-6 text-3xl !text-white">Nuestra Visión</h3>
             <p className="mt-4 text-lg leading-relaxed text-white/85">
-              Ser reconocidos como la clínica líder en la región por la excelencia de nuestros servicios, la innovación tecnológica y la calidez humana en la atención, siendo referencia nacional en especialidades médicas y experiencia del paciente para el año 2030.
+              Nos proyectamos para el 2030 como una institución líder a nivel regional en la prestación de servicios de salud de alta complejidad promoviendo un trato humanizado con los más altos estándares de calidad.
             </p>
           </div>
         </div>
@@ -102,14 +103,17 @@ function Values() {
       <div className="mx-auto max-w-7xl px-6">
         <div className={`mx-auto max-w-2xl text-center ${visible ? "animate-fade-in-up" : "opacity-0"}`}>
           <span className="inline-flex items-center gap-2 rounded-full bg-[#b4e3ed]/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#267794]">
-            Valores
+            Valores corporativos
           </span>
           <h2 className="mt-5 text-4xl md:text-5xl">
             Los principios que <span className="text-gradient-brand">nos guían</span>
           </h2>
+          <p className="mt-4 text-muted-foreground">
+            Cinco valores que definen nuestra cultura y nuestra forma de cuidar a quienes confían en nosotros.
+          </p>
         </div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {values.map(({ icon: Icon, title, desc }, i) => (
             <div
               key={title}
