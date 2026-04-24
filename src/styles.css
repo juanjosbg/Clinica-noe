@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -59,29 +60,44 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-brand-light: var(--brand-light);
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-ink: var(--brand-ink);
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   --radius: 0.625rem;
+  /* Brand palette — Clínica Noé
+     #b4e3ed  light cyan
+     #80cee0  mid cyan
+     #267794  deep teal blue
+  */
+  --brand-light: oklch(0.92 0.04 220);    /* #b4e3ed */
+  --brand: oklch(0.83 0.08 220);          /* #80cee0 */
+  --brand-deep: oklch(0.52 0.10 230);     /* #267794 */
+  --brand-ink: oklch(0.28 0.06 235);      /* darker ink for headings */
+
   --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.22 0.04 235);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.22 0.04 235);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.22 0.04 235);
+  --primary: var(--brand-deep);
+  --primary-foreground: oklch(0.99 0.005 220);
+  --secondary: oklch(0.96 0.02 220);
+  --secondary-foreground: var(--brand-deep);
+  --muted: oklch(0.97 0.015 220);
+  --muted-foreground: oklch(0.50 0.04 230);
+  --accent: var(--brand);
+  --accent-foreground: var(--brand-ink);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: oklch(0.92 0.02 220);
+  --input: oklch(0.92 0.02 220);
+  --ring: var(--brand);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -95,6 +111,13 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  /* Gradients & shadows */
+  --gradient-brand: linear-gradient(135deg, #267794 0%, #80cee0 60%, #b4e3ed 100%);
+  --gradient-deep: linear-gradient(135deg, #0e3a4d 0%, #267794 100%);
+  --gradient-soft: linear-gradient(180deg, #ffffff 0%, #eaf6fa 100%);
+  --shadow-brand: 0 20px 60px -20px rgba(38,119,148,0.35);
+  --shadow-soft: 0 10px 30px -10px rgba(38,119,148,0.2);
 }
 
 .dark {
@@ -140,5 +163,97 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--brand-ink);
+  }
+}
+
+/* Brand utilities */
+@layer utilities {
+  .bg-gradient-brand { background-image: var(--gradient-brand); }
+  .bg-gradient-deep { background-image: var(--gradient-deep); }
+  .bg-gradient-soft { background-image: var(--gradient-soft); }
+  .text-gradient-brand {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .shadow-brand { box-shadow: var(--shadow-brand); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+}
+
+/* Animations */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-32px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(32px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes ken-burns {
+  0% { transform: scale(1.05) translate(0, 0); }
+  100% { transform: scale(1.18) translate(-2%, -1%); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(128, 206, 224, 0.6); }
+  70% { box-shadow: 0 0 0 18px rgba(128, 206, 224, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(128, 206, 224, 0); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes preloader-fade {
+  0%, 70% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@layer utilities {
+  .animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .animate-fade-in { animation: fade-in 0.8s ease-out both; }
+  .animate-scale-in { animation: scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .animate-slide-in-left { animation: slide-in-left 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .animate-slide-in-right { animation: slide-in-right 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .animate-ken-burns { animation: ken-burns 12s ease-out both; }
+  .animate-float { animation: float 3.5s ease-in-out infinite; }
+  .animate-pulse-ring { animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-700 { animation-delay: 700ms; }
+
+  .hover-lift {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-brand);
   }
 }
