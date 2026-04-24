@@ -15,6 +15,7 @@ import { Route as PagosRouteImport } from './routes/pagos'
 import { Route as InternacionalRouteImport } from './routes/internacional'
 import { Route as AtencionRouteImport } from './routes/atencion'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
 
 const ServiciosRoute = ServiciosRouteImport.update({
   id: '/servicios',
@@ -46,6 +47,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ServiciosRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,7 +59,8 @@ export interface FileRoutesByFullPath {
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
   '/quienes-somos': typeof QuienesSomosRoute
-  '/servicios': typeof ServiciosRoute
+  '/servicios': typeof ServiciosRouteWithChildren
+  '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,7 +68,8 @@ export interface FileRoutesByTo {
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
   '/quienes-somos': typeof QuienesSomosRoute
-  '/servicios': typeof ServiciosRoute
+  '/servicios': typeof ServiciosRouteWithChildren
+  '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,7 +78,8 @@ export interface FileRoutesById {
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
   '/quienes-somos': typeof QuienesSomosRoute
-  '/servicios': typeof ServiciosRoute
+  '/servicios': typeof ServiciosRouteWithChildren
+  '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/pagos'
     | '/quienes-somos'
     | '/servicios'
+    | '/servicios/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/pagos'
     | '/quienes-somos'
     | '/servicios'
+    | '/servicios/$slug'
   id:
     | '__root__'
     | '/'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/pagos'
     | '/quienes-somos'
     | '/servicios'
+    | '/servicios/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -105,7 +117,7 @@ export interface RootRouteChildren {
   InternacionalRoute: typeof InternacionalRoute
   PagosRoute: typeof PagosRoute
   QuienesSomosRoute: typeof QuienesSomosRoute
-  ServiciosRoute: typeof ServiciosRoute
+  ServiciosRoute: typeof ServiciosRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -152,8 +164,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/servicios/$slug': {
+      id: '/servicios/$slug'
+      path: '/$slug'
+      fullPath: '/servicios/$slug'
+      preLoaderRoute: typeof ServiciosSlugRouteImport
+      parentRoute: typeof ServiciosRoute
+    }
   }
 }
+
+interface ServiciosRouteChildren {
+  ServiciosSlugRoute: typeof ServiciosSlugRoute
+}
+
+const ServiciosRouteChildren: ServiciosRouteChildren = {
+  ServiciosSlugRoute: ServiciosSlugRoute,
+}
+
+const ServiciosRouteWithChildren = ServiciosRoute._addFileChildren(
+  ServiciosRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -161,7 +192,7 @@ const rootRouteChildren: RootRouteChildren = {
   InternacionalRoute: InternacionalRoute,
   PagosRoute: PagosRoute,
   QuienesSomosRoute: QuienesSomosRoute,
-  ServiciosRoute: ServiciosRoute,
+  ServiciosRoute: ServiciosRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
