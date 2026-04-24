@@ -181,6 +181,98 @@ function Stats() {
   );
 }
 
+function PatientPortal() {
+  const { ref, visible } = useReveal();
+  const resources = [
+    { icon: FileText, title: "Resultados de exámenes", desc: "Consulta y descarga tus resultados de laboratorio." },
+    { icon: CalendarCheck, title: "Agenda tus citas", desc: "Programa, modifica o cancela tus citas en línea." },
+    { icon: UserCircle2, title: "Historia clínica", desc: "Accede a tu información médica de forma segura." },
+  ];
+  return (
+    <section ref={ref} className="bg-[#f3f4f6] py-24">
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2 lg:items-center">
+        <div className={visible ? "animate-slide-in-left" : "opacity-0"}>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {resources.map(({ icon: Icon, title, desc }, i) => (
+              <div
+                key={title}
+                className={`rounded-3xl bg-white p-6 shadow-soft hover-lift ${
+                  i === 0 ? "sm:col-span-2 sm:bg-gradient-brand sm:text-white" : ""
+                }`}
+              >
+                <div
+                  className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
+                    i === 0 ? "bg-white/20 text-white sm:text-white" : "bg-[#b4e3ed]/40 text-[#267794]"
+                  }`}
+                >
+                  <Icon className="h-6 w-6" />
+                </div>
+                <h3 className={`mt-4 text-lg ${i === 0 ? "sm:!text-white" : ""}`}>{title}</h3>
+                <p className={`mt-1 text-sm ${i === 0 ? "sm:text-white/85" : "text-muted-foreground"}`}>
+                  {desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={visible ? "animate-slide-in-right delay-200" : "opacity-0"}>
+          <h2 className="text-4xl text-[#267794] md:text-5xl">Portal del paciente</h2>
+          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+            Hemos creado recursos especiales para ti y tu familia, con{" "}
+            <strong className="font-semibold text-foreground">
+              información clara y útil para acompañarte en cada etapa de tu cuidado.
+            </strong>
+          </p>
+          <a
+            href="#"
+            className="mt-8 inline-flex items-center gap-2 rounded-full border-2 border-[#267794]/40 px-7 py-3 text-sm font-semibold text-[#267794] transition-all hover:bg-[#267794] hover:text-white"
+          >
+            <BookOpen className="h-4 w-4" /> Ver biblioteca
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PatientExperience() {
+  const { ref, visible } = useReveal();
+  return (
+    <section ref={ref} className="bg-background px-4 py-12 sm:px-6">
+      <div
+        className={`mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#267794] to-[#1f5f78] px-8 py-16 text-white shadow-brand sm:px-14 lg:px-20 ${
+          visible ? "animate-fade-in-up" : "opacity-0"
+        }`}
+      >
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div>
+            <h2 className="text-4xl !text-white md:text-5xl">
+              Contamos<br />contigo para seguir<br />creciendo
+            </h2>
+            <p className="mt-6 text-base text-white/85">
+              Lo que piensas, vale. Tu experiencia, aún más.
+            </p>
+          </div>
+          <div>
+            <p className="text-base leading-relaxed text-white/90">
+              Comparte tu opinión (PQSRF), es importante para seguir construyendo un servicio
+              de calidad, centrado en tus necesidades y las de tu familia. Juntos, hacemos de
+              cada experiencia una oportunidad para mejorar.
+            </p>
+            <a
+              href="#"
+              className="mt-7 inline-flex items-center gap-2 rounded-full border-2 border-white/60 px-7 py-3 text-sm font-semibold text-white transition-all hover:bg-white hover:text-[#267794]"
+            >
+              <MessageCircle className="h-4 w-4" /> Experiencia del Paciente
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CTA() {
   const { ref, visible } = useReveal();
   return (
