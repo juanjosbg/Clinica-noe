@@ -34,7 +34,7 @@ function Index() {
   return (
     <>
       <HeroCarousel />
-      <div className="hidden h-32 lg:block" />
+      <div className="hidden h-40 lg:block" />
       <Welcome />
       <Services />
       <Stats />

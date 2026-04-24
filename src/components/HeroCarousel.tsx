@@ -43,26 +43,28 @@ export function HeroCarousel() {
     setIndex((i) => (i + dir + slides.length) % slides.length);
 
   return (
-    <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
-      {slides.map((slide, i) => (
-        <div
-          key={i}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-out ${
-            i === index ? "opacity-100" : "opacity-0"
-          }`}
-          aria-hidden={i !== index}
-        >
-          <img
-            src={slide.image}
-            alt={slide.title}
-            className={`h-full w-full object-cover ${i === index ? "animate-ken-burns" : ""}`}
-            width={1920}
-            height={1080}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0e3a4d]/85 via-[#0e3a4d]/55 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0e3a4d]/70 to-transparent" />
-        </div>
-      ))}
+    <section className="relative h-[100svh] min-h-[640px] w-full overflow-visible">
+      <div className="absolute inset-0 overflow-hidden">
+        {slides.map((slide, i) => (
+          <div
+            key={i}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-out ${
+              i === index ? "opacity-100" : "opacity-0"
+            }`}
+            aria-hidden={i !== index}
+          >
+            <img
+              src={slide.image}
+              alt={slide.title}
+              className={`h-full w-full object-cover ${i === index ? "animate-ken-burns" : ""}`}
+              width={1920}
+              height={1080}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0e3a4d]/85 via-[#0e3a4d]/55 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0e3a4d]/70 to-transparent" />
+          </div>
+        ))}
+      </div>
 
       <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6">
         <div key={index} className="max-w-2xl text-white">
@@ -128,7 +130,7 @@ export function HeroCarousel() {
       </div>
 
       {/* Floating quick actions */}
-      <div className="absolute bottom-0 left-1/2 z-10 hidden w-full max-w-5xl -translate-x-1/2 translate-y-1/2 px-6 lg:block">
+      <div className="absolute bottom-0 left-1/2 z-30 hidden w-full max-w-5xl -translate-x-1/2 translate-y-1/2 px-6 lg:block">
         <div className="grid grid-cols-3 overflow-hidden rounded-3xl bg-gradient-deep shadow-brand">
           {[
             { title: "Agenda tu cita", desc: "De forma fácil, ágil y segura", cta: "Agendar" },

@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
 
 const navItems = [
-  { to: "/quienes-somos" as const, label: "Quiénes somos" },
-  { to: "/atencion" as const, label: "Atención al paciente" },
+  { to: "/quienes-somos" as const, label: "Qui\u00e9nes somos" },
+  { to: "/atencion" as const, label: "Atenci\u00f3n al paciente" },
   { to: "/servicios" as const, label: "Servicios" },
-  { to: "/internacional" as const, label: "Oficina Internacional" },
-  { to: "/pagos" as const, label: "Pagos" },
+  /* { to: "/internacional" as const, label: "Oficina Internacional" },
+  { to: "/pagos" as const, label: "Pagos" }, */
 ];
 
 export function Header() {
@@ -25,25 +25,17 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-white/90 backdrop-blur-md shadow-soft py-3"
-          : "bg-transparent py-5"
+          ? "bg-white/90 py-4 shadow-soft backdrop-blur-md"
+          : "bg-transparent py-6"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-brand shadow-soft transition-transform group-hover:scale-110">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" className="h-6 w-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14m-7-7h14" />
-            </svg>
-          </div>
-          <div className="leading-tight">
-            <p className={`text-lg font-bold tracking-tight ${scrolled ? "text-[#267794]" : "text-white drop-shadow"}`}>
-              Clínica Noé
-            </p>
-            <p className={`text-[10px] uppercase tracking-[0.18em] ${scrolled ? "text-muted-foreground" : "text-white/80"}`}>
-              Cuidamos lo que amas
-            </p>
-          </div>
+        <Link to="/" className="group flex items-center">
+          <img
+            src={scrolled ? "/Logo/Noe.png" : "/Logo/Noe-Blanco.png"}
+            alt={"Cl\u00ednica No\u00e9"}
+            className="h-20 w-auto max-w-[300px] transition-transform group-hover:scale-105 md:h-24 md:max-w-[360px]"
+          />
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex">
@@ -66,20 +58,20 @@ export function Header() {
           className="hidden items-center gap-2 rounded-full bg-gradient-brand px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-105 lg:flex"
         >
           <Phone className="h-4 w-4" />
-          (606) 386 5320
+          {"L\u00ednea 24/7"}
         </a>
 
         <button
-          aria-label="Menú"
+          aria-label={"Men\u00fa"}
           onClick={() => setOpen((v) => !v)}
-          className={`lg:hidden rounded-full p-2 ${scrolled ? "text-[#267794]" : "text-white"}`}
+          className={`rounded-full p-2 lg:hidden ${scrolled ? "text-[#267794]" : "text-white"}`}
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
       {open && (
-        <div className="lg:hidden mx-4 mt-3 rounded-2xl bg-white/95 p-4 shadow-brand backdrop-blur animate-scale-in">
+        <div className="mx-4 mt-3 animate-scale-in rounded-2xl bg-white/95 p-4 shadow-brand backdrop-blur lg:hidden">
           <nav className="flex flex-col gap-1">
             {navItems.map((item) => (
               <Link
@@ -95,7 +87,7 @@ export function Header() {
               href="tel:+576063865320"
               className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-gradient-brand px-4 py-3 text-sm font-semibold text-white"
             >
-              <Phone className="h-4 w-4" /> (606) 386 5320
+              <Phone className="h-4 w-4" /> {"L\u00ednea 24/7"}
             </a>
           </nav>
         </div>

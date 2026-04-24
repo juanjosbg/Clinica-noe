@@ -11,22 +11,24 @@ export function Preloader() {
   return (
     <div
       aria-hidden={hidden}
-      className={`fixed inset-0 z-[100] flex items-center justify-center bg-gradient-deep transition-opacity duration-700 ${
+      className={`fixed inset-0 z-[100] flex items-center justify-center overflow-hidden transition-opacity duration-700 ${
         hidden ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(16, 73, 95, 0.68), rgba(16, 73, 95, 0.68)), url('/Photos/Clinica-Noe2.jpg')",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+      }}
     >
-      <div className="flex flex-col items-center gap-6">
+      <div className="flex max-w-xl flex-col items-center gap-6 px-6 text-center">
         <div className="relative">
           <div className="absolute inset-0 animate-pulse-ring rounded-full" />
-          <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-brand">
-            <svg viewBox="0 0 24 24" className="h-10 w-10 text-[#267794]" fill="none" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-            </svg>
-          </div>
-        </div>
-        <div className="text-center">
-          <p className="text-2xl font-semibold tracking-wide text-white">Clínica Noé</p>
-          <p className="mt-1 text-sm text-[#b4e3ed]">Cuidamos lo que más amas</p>
+          <img
+            src="/Logo/Noe-Blanco.png"
+            alt="Clínica Noé"
+            className="relative w-56 max-w-full drop-shadow-[0_12px_30px_rgba(0,0,0,0.28)] md:w-72"
+          />
         </div>
       </div>
     </div>
