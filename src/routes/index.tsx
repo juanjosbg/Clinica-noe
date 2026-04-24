@@ -1,12 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { useReveal } from "@/hooks/useReveal";
 import { useCountUp } from "@/hooks/useCountUp";
 import {
-  Heart, Stethoscope, Activity, Baby, Brain, Eye, Bone, Microscope,
+  Heart, Activity,
   ShieldCheck, Award, Users, Clock, ArrowRight, BookOpen, MessageCircle,
   FileText, CalendarCheck, UserCircle2,
 } from "lucide-react";
+import { services } from "@/data/services";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,16 +21,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const services = [
-  { icon: Heart, title: "Cardiología", desc: "Diagnóstico y tratamiento integral del corazón." },
-  { icon: Baby, title: "Pediatría", desc: "Cuidado especializado para los más pequeños." },
-  { icon: Brain, title: "Neurología", desc: "Atención avanzada del sistema nervioso." },
-  { icon: Bone, title: "Ortopedia", desc: "Recuperación funcional y traumatología." },
-  { icon: Eye, title: "Oftalmología", desc: "Salud visual con equipos de última generación." },
-  { icon: Microscope, title: "Laboratorio", desc: "Análisis clínicos precisos y oportunos." },
-  { icon: Stethoscope, title: "Medicina interna", desc: "Atención integral del adulto." },
-  { icon: Activity, title: "Urgencias 24/7", desc: "Respuesta inmediata cuando más lo necesitas." },
-];
+const featuredServices = services.slice(0, 8);
 
 const stats: { value: number; suffix: string; label: string; literal?: string }[] = [
   { value: 25, suffix: "+", label: "Años de experiencia" },
@@ -123,33 +115,47 @@ function Services() {
             Servicios
           </span>
           <h2 className="mt-5 text-4xl md:text-5xl">
-            Especialidades <span className="text-gradient-brand">médicas</span>
+            Nuestros <span className="text-gradient-brand">servicios</span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Más de 30 especialidades para cuidar a toda la familia.
+            Mediana y alta complejidad con atención humanizada, segura y oportuna.
           </p>
         </div>
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map(({ icon: Icon, title, desc }, i) => (
-            <div
-              key={title}
-              className={`group relative overflow-hidden rounded-3xl border border-border bg-white p-7 hover-lift ${
-                visible ? "animate-fade-in-up" : "opacity-0"
-              }`}
-              style={{ animationDelay: `${i * 80}ms` }}
-            >
-              <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#b4e3ed]/0 transition-all duration-500 group-hover:bg-[#b4e3ed]/40" />
-              <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-brand text-white shadow-soft">
-                <Icon className="h-7 w-7" />
-              </div>
-              <h3 className="relative mt-5 text-xl">{title}</h3>
-              <p className="relative mt-2 text-sm text-muted-foreground">{desc}</p>
-              <div className="relative mt-5 inline-flex items-center gap-1 text-xs font-semibold text-[#267794] opacity-0 transition-opacity group-hover:opacity-100">
-                Ver más <ArrowRight className="h-3 w-3" />
-              </div>
-            </div>
-          ))}
+          {featuredServices.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <Link
+                key={s.slug}
+                to="/servicios/$slug"
+                params={{ slug: s.slug }}
+                className={`group relative overflow-hidden rounded-3xl border border-border bg-white p-7 hover-lift ${
+                  visible ? "animate-fade-in-up" : "opacity-0"
+                }`}
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#b4e3ed]/0 transition-all duration-500 group-hover:bg-[#b4e3ed]/40" />
+                <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-brand text-white shadow-soft">
+                  <Icon className="h-7 w-7" />
+                </div>
+                <h3 className="relative mt-5 text-xl">{s.shortTitle}</h3>
+                <p className="relative mt-2 text-sm text-muted-foreground">{s.summary}</p>
+                <div className="relative mt-5 inline-flex items-center gap-1 text-xs font-semibold text-[#267794] opacity-0 transition-opacity group-hover:opacity-100">
+                  Ver más <ArrowRight className="h-3 w-3" />
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className={`mt-12 text-center ${visible ? "animate-fade-in-up" : "opacity-0"}`}>
+          <Link
+            to="/servicios"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-[#267794]/40 px-7 py-3 text-sm font-semibold text-[#267794] transition-all hover:bg-[#267794] hover:text-white"
+          >
+            Ver todos los servicios <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </section>
