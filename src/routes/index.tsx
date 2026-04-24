@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { useReveal } from "@/hooks/useReveal";
+import { useCountUp } from "@/hooks/useCountUp";
 import {
   Heart, Stethoscope, Activity, Baby, Brain, Eye, Bone, Microscope,
   ShieldCheck, Award, Users, Clock, ArrowRight, BookOpen, MessageCircle,
@@ -30,11 +31,11 @@ const services = [
   { icon: Activity, title: "Urgencias 24/7", desc: "Respuesta inmediata cuando más lo necesitas." },
 ];
 
-const stats = [
-  { value: "25+", label: "Años de experiencia" },
-  { value: "150+", label: "Especialistas" },
-  { value: "98%", label: "Satisfacción" },
-  { value: "24/7", label: "Atención" },
+const stats: { value: number; suffix: string; label: string; literal?: string }[] = [
+  { value: 25, suffix: "+", label: "Años de experiencia" },
+  { value: 150, suffix: "+", label: "Especialistas" },
+  { value: 98, suffix: "%", label: "Satisfacción" },
+  { value: 24, suffix: "/7", label: "Atención" },
 ];
 
 function Index() {
@@ -53,7 +54,7 @@ function Index() {
 }
 
 function Welcome() {
-  const { ref, visible } = useReveal();
+  const { ref, visible } = useReveal(0.15);
   return (
     <section ref={ref} className="bg-gradient-soft py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -113,7 +114,7 @@ function Welcome() {
 }
 
 function Services() {
-  const { ref, visible } = useReveal();
+  const { ref, visible } = useReveal(0.1);
   return (
     <section id="servicios" ref={ref} className="bg-background py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -156,33 +157,50 @@ function Services() {
 }
 
 function Stats() {
-  const { ref, visible } = useReveal();
+  const { ref, visible } = useReveal(0.3);
   return (
     <section ref={ref} className="relative overflow-hidden bg-gradient-deep py-20 text-white">
       <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-[#80cee0]/20 blur-3xl" />
       <div className="absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-[#b4e3ed]/15 blur-3xl" />
       <div className="relative mx-auto grid max-w-7xl grid-cols-2 gap-8 px-6 md:grid-cols-4">
         {stats.map((s, i) => (
-          <div
-            key={s.label}
-            className={`text-center ${visible ? "animate-scale-in" : "opacity-0"}`}
-            style={{ animationDelay: `${i * 120}ms` }}
-          >
-            <p className="text-5xl font-bold !text-white md:text-6xl">
-              <span className="bg-gradient-to-r from-[#b4e3ed] to-[#80cee0] bg-clip-text text-transparent">
-                {s.value}
-              </span>
-            </p>
-            <p className="mt-2 text-sm uppercase tracking-[0.18em] text-white/70">{s.label}</p>
-          </div>
+          <StatItem key={s.label} stat={s} index={i} visible={visible} />
         ))}
       </div>
     </section>
   );
 }
 
+function StatItem({
+  stat,
+  index,
+  visible,
+}: {
+  stat: { value: number; suffix: string; label: string };
+  index: number;
+  visible: boolean;
+}) {
+  const count = useCountUp(stat.value, visible, 1800 + index * 150);
+  return (
+    <div
+      className={`text-center transition-all duration-700 ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+      }`}
+      style={{ transitionDelay: `${index * 120}ms` }}
+    >
+      <p className="text-5xl font-bold !text-white md:text-6xl">
+        <span className="bg-gradient-to-r from-[#b4e3ed] to-[#80cee0] bg-clip-text text-transparent tabular-nums">
+          {count}
+          {stat.suffix}
+        </span>
+      </p>
+      <p className="mt-2 text-sm uppercase tracking-[0.18em] text-white/70">{stat.label}</p>
+    </div>
+  );
+}
+
 function PatientPortal() {
-  const { ref, visible } = useReveal();
+  const { ref, visible } = useReveal(0.15);
   const resources = [
     { icon: FileText, title: "Resultados de exámenes", desc: "Consulta y descarga tus resultados de laboratorio." },
     { icon: CalendarCheck, title: "Agenda tus citas", desc: "Programa, modifica o cancela tus citas en línea." },
@@ -237,7 +255,7 @@ function PatientPortal() {
 }
 
 function PatientExperience() {
-  const { ref, visible } = useReveal();
+  const { ref, visible } = useReveal(0.2);
   return (
     <section ref={ref} className="bg-background px-4 py-12 sm:px-6">
       <div
@@ -274,7 +292,7 @@ function PatientExperience() {
 }
 
 function CTA() {
-  const { ref, visible } = useReveal();
+  const { ref, visible } = useReveal(0.2);
   return (
     <section ref={ref} className="bg-gradient-soft py-24" id="agenda">
       <div className={`mx-auto max-w-5xl px-6 text-center ${visible ? "animate-fade-in-up" : "opacity-0"}`}>
