@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Youtube } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 
 export function Footer() {
   return (
@@ -18,10 +18,10 @@ export function Footer() {
             <p className="text-xl font-bold">Clínica Noé</p>
           </div>
           <p className="mt-4 text-sm leading-relaxed text-white/75">
-            Atención médica de excelencia con tecnología de vanguardia y un equipo humano comprometido con tu bienestar.
+            Servicios de salud de mediana y alta complejidad con atención humanizada, segura y oportuna en Pereira — Colombia.
           </p>
           <div className="mt-6 flex gap-3">
-            {[Facebook, Instagram, Linkedin, Youtube].map((Icon, i) => (
+            {[Facebook, Instagram].map((Icon, i) => (
               <a
                 key={i}
                 href="#"
@@ -47,20 +47,21 @@ export function Footer() {
         <div>
           <h4 className="text-base !text-white">Servicios</h4>
           <ul className="mt-4 space-y-2 text-sm text-white/75">
-            <li>Urgencias 24/7</li>
-            <li>Cirugía especializada</li>
-            <li>Cuidado materno-infantil</li>
-            <li>Cardiología</li>
-            <li>Imágenes diagnósticas</li>
+            <li><Link to="/servicios/$slug" params={{ slug: "urgencias" }} className="hover:text-[#80cee0]">Urgencias</Link></li>
+            <li><Link to="/servicios/$slug" params={{ slug: "uci" }} className="hover:text-[#80cee0]">UCI e Intermedios</Link></li>
+            <li><Link to="/servicios/$slug" params={{ slug: "hospitalizacion" }} className="hover:text-[#80cee0]">Hospitalización</Link></li>
+            <li><Link to="/servicios/$slug" params={{ slug: "cirugia" }} className="hover:text-[#80cee0]">Cirugía</Link></li>
+            <li><Link to="/servicios/$slug" params={{ slug: "imagenes-diagnosticas" }} className="hover:text-[#80cee0]">Imágenes Diagnósticas</Link></li>
           </ul>
         </div>
 
         <div>
           <h4 className="text-base !text-white">Contáctanos</h4>
           <ul className="mt-4 space-y-3 text-sm text-white/75">
-            <li className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 text-[#80cee0]" /> Av. Principal #123, Cali — Colombia</li>
-            <li className="flex items-start gap-3"><Phone className="mt-0.5 h-4 w-4 text-[#80cee0]" /> +57 (60) 000 0000</li>
-            <li className="flex items-start gap-3"><Mail className="mt-0.5 h-4 w-4 text-[#80cee0]" /> contacto@clinicanoe.com</li>
+            <li className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 text-[#80cee0]" /> Carrera 7 #45-80, Pereira — Colombia</li>
+            <li className="flex items-start gap-3"><Phone className="mt-0.5 h-4 w-4 text-[#80cee0]" /> PBX (606) 386 5320</li>
+            <li className="flex items-start gap-3"><Phone className="mt-0.5 h-4 w-4 text-[#80cee0]" /> Urgencias Ext. 3520</li>
+            <li className="flex items-start gap-3"><Mail className="mt-0.5 h-4 w-4 text-[#80cee0]" /> coor.siau@clinicanoe.com.co</li>
           </ul>
         </div>
       </div>
@@ -68,7 +69,7 @@ export function Footer() {
       <div className="relative border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-xs text-white/60 md:flex-row">
           <p>© {new Date().getFullYear()} Clínica Noé. Todos los derechos reservados.</p>
-          <p>Habilitada para prestar servicios de salud.</p>
+          <p>Vigilado Supersalud.</p>
         </div>
       </div>
     </footer>
