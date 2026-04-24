@@ -3,7 +3,8 @@ import { HeroCarousel } from "@/components/HeroCarousel";
 import { useReveal } from "@/hooks/useReveal";
 import {
   Heart, Stethoscope, Activity, Baby, Brain, Eye, Bone, Microscope,
-  ShieldCheck, Award, Users, Clock, ArrowRight,
+  ShieldCheck, Award, Users, Clock, ArrowRight, BookOpen, MessageCircle,
+  FileText, CalendarCheck, UserCircle2,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -44,6 +45,8 @@ function Index() {
       <Welcome />
       <Services />
       <Stats />
+      <PatientPortal />
+      <PatientExperience />
       <CTA />
     </>
   );
