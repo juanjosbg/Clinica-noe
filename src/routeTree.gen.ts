@@ -14,6 +14,7 @@ import { Route as QuienesSomosRouteImport } from './routes/quienes-somos'
 import { Route as PortafoliosRouteImport } from './routes/portafolios'
 import { Route as PagosRouteImport } from './routes/pagos'
 import { Route as InternacionalRouteImport } from './routes/internacional'
+import { Route as FinancierosRouteImport } from './routes/financieros'
 import { Route as AtencionRouteImport } from './routes/atencion'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
@@ -43,6 +44,11 @@ const InternacionalRoute = InternacionalRouteImport.update({
   path: '/internacional',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FinancierosRoute = FinancierosRouteImport.update({
+  id: '/financieros',
+  path: '/financieros',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AtencionRoute = AtencionRouteImport.update({
   id: '/atencion',
   path: '/atencion',
@@ -62,6 +68,7 @@ const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/atencion': typeof AtencionRoute
+  '/financieros': typeof FinancierosRoute
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
   '/portafolios': typeof PortafoliosRoute
@@ -72,6 +79,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/atencion': typeof AtencionRoute
+  '/financieros': typeof FinancierosRoute
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
   '/portafolios': typeof PortafoliosRoute
@@ -83,6 +91,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/atencion': typeof AtencionRoute
+  '/financieros': typeof FinancierosRoute
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
   '/portafolios': typeof PortafoliosRoute
@@ -95,6 +104,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/atencion'
+    | '/financieros'
     | '/internacional'
     | '/pagos'
     | '/portafolios'
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/atencion'
+    | '/financieros'
     | '/internacional'
     | '/pagos'
     | '/portafolios'
@@ -115,6 +126,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/atencion'
+    | '/financieros'
     | '/internacional'
     | '/pagos'
     | '/portafolios'
@@ -126,6 +138,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AtencionRoute: typeof AtencionRoute
+  FinancierosRoute: typeof FinancierosRoute
   InternacionalRoute: typeof InternacionalRoute
   PagosRoute: typeof PagosRoute
   PortafoliosRoute: typeof PortafoliosRoute
@@ -170,6 +183,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InternacionalRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/financieros': {
+      id: '/financieros'
+      path: '/financieros'
+      fullPath: '/financieros'
+      preLoaderRoute: typeof FinancierosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/atencion': {
       id: '/atencion'
       path: '/atencion'
@@ -209,6 +229,7 @@ const ServiciosRouteWithChildren = ServiciosRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AtencionRoute: AtencionRoute,
+  FinancierosRoute: FinancierosRoute,
   InternacionalRoute: InternacionalRoute,
   PagosRoute: PagosRoute,
   PortafoliosRoute: PortafoliosRoute,

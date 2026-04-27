@@ -134,7 +134,12 @@ export function HeroCarousel() {
         <div className="grid grid-cols-3 overflow-hidden rounded-3xl bg-gradient-deep shadow-brand">
           {[
             { title: "Agenda tu cita", desc: "De forma fácil, ágil y segura", cta: "Agendar", href: "#agenda" },
-            { title: "Portal de resultados", desc: "Consulta y descarga en línea", cta: "Ingresar", href: "#" },
+            {
+              title: "Estados Financieros",
+              desc: "Consulta y descarga los informes",
+              cta: "Ingresar",
+              href: "/financieros",
+            },
             {
               title: "Portafolio de servicio",
               desc: "Conoce nuestra oferta institucional",
