@@ -10,14 +10,13 @@ export function Footer() {
       <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-20 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#267794" strokeWidth="2.5" className="h-6 w-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14m-7-7h14" />
-              </svg>
-            </div>
-            <p className="text-xl font-bold">Clínica Noé</p>
+            <img
+            src={"/Logo/Noe-Blanco.png"}
+            alt={"Cl\u00ednica No\u00e9"}
+            className="h-20 w-auto max-w-75 md:h-24 md:max-w-90"
+          />
           </div>
-          <p className="mt-4 text-sm leading-relaxed text-white/75">
+          <p className=" text-sm leading-relaxed text-white/75">
             Servicios de salud de mediana y alta complejidad con atención humanizada, segura y oportuna en Pereira — Colombia.
           </p>
           <div className="mt-6 flex gap-3">

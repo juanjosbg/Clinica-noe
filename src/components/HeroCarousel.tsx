@@ -133,9 +133,14 @@ export function HeroCarousel() {
       <div className="absolute bottom-0 left-1/2 z-30 hidden w-full max-w-5xl -translate-x-1/2 translate-y-1/2 px-6 lg:block">
         <div className="grid grid-cols-3 overflow-hidden rounded-3xl bg-gradient-deep shadow-brand">
           {[
-            { title: "Agenda tu cita", desc: "De forma fácil, ágil y segura", cta: "Agendar" },
-            { title: "Portal de resultados", desc: "Consulta y descarga en línea", cta: "Ingresar" },
-            { title: "Urgencias 24/7", desc: "Atención inmediata", cta: "Contactar" },
+            { title: "Agenda tu cita", desc: "De forma fácil, ágil y segura", cta: "Agendar", href: "#agenda" },
+            { title: "Portal de resultados", desc: "Consulta y descarga en línea", cta: "Ingresar", href: "#" },
+            {
+              title: "Portafolio",
+              desc: "Conoce nuestra oferta institucional",
+              cta: "Ingresar",
+              href: "/Portafolios/PORTAFOLIO-NOE-2026.pdf",
+            },
           ].map((it, i) => (
             <div key={i} className={`p-7 ${i < 2 ? "border-r border-white/10" : ""}`}>
               <p className="text-xl font-semibold text-white">
@@ -143,9 +148,14 @@ export function HeroCarousel() {
                 <span className="text-[#80cee0]">{it.title.split(" ").slice(1).join(" ")}</span>
               </p>
               <p className="mt-1 text-sm text-white/70">{it.desc}</p>
-              <button className="mt-4 rounded-full border border-[#80cee0]/60 px-5 py-2 text-xs font-semibold text-white transition-all hover:bg-[#80cee0] hover:text-[#0e3a4d]">
+              <a
+                href={it.href}
+                target={it.href.endsWith(".pdf") ? "_blank" : undefined}
+                rel={it.href.endsWith(".pdf") ? "noreferrer" : undefined}
+                className="mt-4 inline-flex rounded-full border border-[#80cee0]/60 px-5 py-2 text-xs font-semibold text-white transition-all hover:bg-[#80cee0] hover:text-[#0e3a4d]"
+              >
                 {it.cta}
-              </button>
+              </a>
             </div>
           ))}
         </div>
