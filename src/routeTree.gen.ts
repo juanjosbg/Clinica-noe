@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as QuienesSomosRouteImport } from './routes/quienes-somos'
+import { Route as PortafoliosRouteImport } from './routes/portafolios'
 import { Route as PagosRouteImport } from './routes/pagos'
 import { Route as InternacionalRouteImport } from './routes/internacional'
 import { Route as AtencionRouteImport } from './routes/atencion'
@@ -25,6 +26,11 @@ const ServiciosRoute = ServiciosRouteImport.update({
 const QuienesSomosRoute = QuienesSomosRouteImport.update({
   id: '/quienes-somos',
   path: '/quienes-somos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortafoliosRoute = PortafoliosRouteImport.update({
+  id: '/portafolios',
+  path: '/portafolios',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PagosRoute = PagosRouteImport.update({
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/atencion': typeof AtencionRoute
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
+  '/portafolios': typeof PortafoliosRoute
   '/quienes-somos': typeof QuienesSomosRoute
   '/servicios': typeof ServiciosRouteWithChildren
   '/servicios/$slug': typeof ServiciosSlugRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/atencion': typeof AtencionRoute
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
+  '/portafolios': typeof PortafoliosRoute
   '/quienes-somos': typeof QuienesSomosRoute
   '/servicios': typeof ServiciosRouteWithChildren
   '/servicios/$slug': typeof ServiciosSlugRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/atencion': typeof AtencionRoute
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
+  '/portafolios': typeof PortafoliosRoute
   '/quienes-somos': typeof QuienesSomosRoute
   '/servicios': typeof ServiciosRouteWithChildren
   '/servicios/$slug': typeof ServiciosSlugRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/atencion'
     | '/internacional'
     | '/pagos'
+    | '/portafolios'
     | '/quienes-somos'
     | '/servicios'
     | '/servicios/$slug'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/atencion'
     | '/internacional'
     | '/pagos'
+    | '/portafolios'
     | '/quienes-somos'
     | '/servicios'
     | '/servicios/$slug'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/atencion'
     | '/internacional'
     | '/pagos'
+    | '/portafolios'
     | '/quienes-somos'
     | '/servicios'
     | '/servicios/$slug'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   AtencionRoute: typeof AtencionRoute
   InternacionalRoute: typeof InternacionalRoute
   PagosRoute: typeof PagosRoute
+  PortafoliosRoute: typeof PortafoliosRoute
   QuienesSomosRoute: typeof QuienesSomosRoute
   ServiciosRoute: typeof ServiciosRouteWithChildren
 }
@@ -134,6 +147,13 @@ declare module '@tanstack/react-router' {
       path: '/quienes-somos'
       fullPath: '/quienes-somos'
       preLoaderRoute: typeof QuienesSomosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portafolios': {
+      id: '/portafolios'
+      path: '/portafolios'
+      fullPath: '/portafolios'
+      preLoaderRoute: typeof PortafoliosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pagos': {
@@ -191,6 +211,7 @@ const rootRouteChildren: RootRouteChildren = {
   AtencionRoute: AtencionRoute,
   InternacionalRoute: InternacionalRoute,
   PagosRoute: PagosRoute,
+  PortafoliosRoute: PortafoliosRoute,
   QuienesSomosRoute: QuienesSomosRoute,
   ServiciosRoute: ServiciosRouteWithChildren,
 }

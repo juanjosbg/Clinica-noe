@@ -136,10 +136,10 @@ export function HeroCarousel() {
             { title: "Agenda tu cita", desc: "De forma fácil, ágil y segura", cta: "Agendar", href: "#agenda" },
             { title: "Portal de resultados", desc: "Consulta y descarga en línea", cta: "Ingresar", href: "#" },
             {
-              title: "Portafolio",
+              title: "Portafolio de servicio",
               desc: "Conoce nuestra oferta institucional",
               cta: "Ingresar",
-              href: "/Portafolios/PORTAFOLIO-NOE-2026.pdf",
+              href: "/portafolios",
             },
           ].map((it, i) => (
             <div key={i} className={`p-7 ${i < 2 ? "border-r border-white/10" : ""}`}>
