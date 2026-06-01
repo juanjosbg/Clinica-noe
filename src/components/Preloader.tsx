@@ -4,7 +4,7 @@ export function Preloader() {
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setHidden(true), 1400);
+    const t = setTimeout(() => setHidden(true), 1500);
     return () => clearTimeout(t);
   }, []);
 
@@ -20,7 +20,7 @@ export function Preloader() {
       <div className="flex max-w-xl flex-col items-center gap-6 px-6 text-center">
         <div className="relative">
           <div className="absolute inset-0 animate-pulse-ring rounded-full" />
-          <p className="text-lg font-semibold tracking-normal text-white md:text-xl">
+          <p className="text-2xl font-semibold tracking-normal text-white md:text-4xl xl:text-5xl px-10 p-5 uppercase">
             Cargando
             <span className="loading-dots" aria-hidden="true">
               <span>.</span>
