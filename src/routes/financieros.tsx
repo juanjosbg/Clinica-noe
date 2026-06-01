@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, FileText } from "lucide-react";
 
-const financialStatementUrl = "/EstadosFinancieros/ORIGINAL EF 2025 CNOE.pdf";
+const financialStatementUrl = "/EstadosFinancieros/EEFF-2025-CNOE.pdf";
 
 export const Route = createFileRoute("/financieros")({
   head: () => ({
