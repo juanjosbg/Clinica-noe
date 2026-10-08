@@ -17,6 +17,7 @@ export interface ServiceDetail {
   shortTitle: string;
   category: ServiceCategory;
   icon: LucideIcon;
+  highlights: string[];
   summary: string;
   description: string;
   infrastructureTitle?: string;
@@ -32,6 +33,7 @@ export const services: ServiceDetail[] = [
     shortTitle: "Servicio de Urgencias",
     category: "Atención inmediata",
     icon: Activity,
+    highlights: ["Atención las 24 horas","Atención para población adulta","Equipo multidisciplinario","Sala de reanimación y observación"],
     summary: "Atención integral, oportuna y humanizada las 24 horas para población adulta.",
     description:
       "El servicio de urgencias cuenta con un equipo multidisciplinario de profesionales altamente calificados para la atención de nuestra población adulta y con el fin de brindar una atención integral, oportuna y humanizada.",
@@ -51,6 +53,7 @@ export const services: ServiceDetail[] = [
     shortTitle: "Servicios de Internación",
     category: "Internación",
     icon: HeartPulse,
+    highlights: ["Internistas e intensivistas 24/7","Monitoreo continuo","Cuidados intensivos e intermedios","Acompañante permanente"],
     summary:
       "Médicos internistas e intensivistas disponibles 24/7 para pacientes en condiciones críticas.",
     description:
@@ -70,6 +73,7 @@ export const services: ServiceDetail[] = [
     shortTitle: "Hospitalización",
     category: "Internación",
     icon: BedDouble,
+    highlights: ["Hospitalización de adultos","Habitaciones unipersonales","Cubículos de aislamiento","Acompañante permanente"],
     summary:
       "Habitaciones unipersonales para adultos, con un entorno cómodo para la recuperación.",
     description:
@@ -87,6 +91,7 @@ export const services: ServiceDetail[] = [
     shortTitle: "Cirugía",
     category: "Internación",
     icon: Scissors,
+    highlights: ["5 quirófanos","Mediana y alta complejidad","Más de 10 especialidades","Equipos de última tecnología"],
     summary:
       "5 quirófanos y más de 10 especialidades médico-quirúrgicas con tecnología de vanguardia.",
     description:
@@ -115,6 +120,7 @@ export const services: ServiceDetail[] = [
     shortTitle: "Laboratorio Clínico",
     category: "Apoyo diagnóstico",
     icon: Microscope,
+    highlights: ["Disponibilidad las 24 horas","Personal altamente capacitado","Equipos de última tecnología","Resultados oportunos y confiables"],
     summary:
       "Servicios de apoyo diagnóstico oportunos, eficientes y confiables las 24 horas.",
     description:
@@ -140,6 +146,7 @@ export const services: ServiceDetail[] = [
     shortTitle: "Imágenes Diagnósticas",
     category: "Apoyo diagnóstico",
     icon: ScanLine,
+    highlights: ["Tomografía y resonancia","Rayos X","Radiología intervencionista","Ecografía y Doppler"],
     summary:
       "14 radiólogos y equipos de última tecnología disponibles 24 horas al día.",
     description:
@@ -150,7 +157,7 @@ export const services: ServiceDetail[] = [
       "Resonancia Magnética Nuclear (RMN).",
       "Rayos X.",
       "Radiología intervencionista.",
-      "Ecografía.",
+      "Ecografía y Doppler.",
     ],
   },
   {
@@ -159,6 +166,7 @@ export const services: ServiceDetail[] = [
     shortTitle: "Hemodinamia",
     category: "Apoyo diagnóstico",
     icon: Radio,
+    highlights: ["Disponibilidad las 24 horas","Procedimientos endovasculares","Angiógrafo de última generación","Equipo multidisciplinario"],
     summary:
       "Procedimientos endovasculares de alta complejidad disponibles 24/7.",
     description:
@@ -177,6 +185,7 @@ export const services: ServiceDetail[] = [
     shortTitle: "Diagnóstico Cardiovascular",
     category: "Apoyo diagnóstico",
     icon: Stethoscope,
+    highlights: ["Ecocardiogramas","Prueba de esfuerzo","Monitoreo Holter y MAPA","Electrocardiografía"],
     summary:
       "Procedimientos cardiológicos mínimamente invasivos para diagnóstico y tratamiento.",
     description:
@@ -196,6 +205,7 @@ export const services: ServiceDetail[] = [
     shortTitle: "Unidad de Endoscopia",
     category: "Apoyo diagnóstico",
     icon: Eye,
+    highlights: ["Procedimientos diagnósticos y terapéuticos","Tracto gastrointestinal","Vías respiratorias","Talento humano especializado"],
     summary:
       "Procedimientos endoscópicos del tracto gastrointestinal y vías respiratorias.",
     description:
@@ -207,6 +217,7 @@ export const services: ServiceDetail[] = [
     shortTitle: "Consulta Externa",
     category: "Consulta",
     icon: ClipboardList,
+    highlights: ["20 consultorios","Sala de procedimientos","Múltiples especialidades","Atención humanizada"],
     summary:
       "20 consultorios y una sala de procedimientos para múltiples especialidades.",
     description:
@@ -229,6 +240,7 @@ export const services: ServiceDetail[] = [
     shortTitle: "Atención Odontológica",
     category: "Atención odontológica",
     icon: Smile,
+    highlights: ["Urgencias odontológicas","Endodoncia e implantología","Cirugía oral y maxilofacial","Prevención y salud bucal"],
     summary:
       "Atención odontológica especializada con tecnología de vanguardia y enfoque multidisciplinario.",
     description:

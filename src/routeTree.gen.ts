@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as QuienesSomosRouteImport } from './routes/quienes-somos'
 import { Route as PortafoliosRouteImport } from './routes/portafolios'
 import { Route as PagosRouteImport } from './routes/pagos'
@@ -17,13 +16,9 @@ import { Route as InternacionalRouteImport } from './routes/internacional'
 import { Route as FinancierosRouteImport } from './routes/financieros'
 import { Route as AtencionRouteImport } from './routes/atencion'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServiciosIndexRouteImport } from './routes/servicios.index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
 
-const ServiciosRoute = ServiciosRouteImport.update({
-  id: '/servicios',
-  path: '/servicios',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const QuienesSomosRoute = QuienesSomosRouteImport.update({
   id: '/quienes-somos',
   path: '/quienes-somos',
@@ -59,10 +54,15 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServiciosIndexRoute = ServiciosIndexRouteImport.update({
+  id: '/servicios/',
+  path: '/servicios/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ServiciosRoute,
+  id: '/servicios/$slug',
+  path: '/servicios/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -73,8 +73,8 @@ export interface FileRoutesByFullPath {
   '/pagos': typeof PagosRoute
   '/portafolios': typeof PortafoliosRoute
   '/quienes-somos': typeof QuienesSomosRoute
-  '/servicios': typeof ServiciosRouteWithChildren
   '/servicios/$slug': typeof ServiciosSlugRoute
+  '/servicios/': typeof ServiciosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -84,8 +84,8 @@ export interface FileRoutesByTo {
   '/pagos': typeof PagosRoute
   '/portafolios': typeof PortafoliosRoute
   '/quienes-somos': typeof QuienesSomosRoute
-  '/servicios': typeof ServiciosRouteWithChildren
   '/servicios/$slug': typeof ServiciosSlugRoute
+  '/servicios': typeof ServiciosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -96,8 +96,8 @@ export interface FileRoutesById {
   '/pagos': typeof PagosRoute
   '/portafolios': typeof PortafoliosRoute
   '/quienes-somos': typeof QuienesSomosRoute
-  '/servicios': typeof ServiciosRouteWithChildren
   '/servicios/$slug': typeof ServiciosSlugRoute
+  '/servicios/': typeof ServiciosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -109,8 +109,8 @@ export interface FileRouteTypes {
     | '/pagos'
     | '/portafolios'
     | '/quienes-somos'
-    | '/servicios'
     | '/servicios/$slug'
+    | '/servicios/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,8 +120,8 @@ export interface FileRouteTypes {
     | '/pagos'
     | '/portafolios'
     | '/quienes-somos'
-    | '/servicios'
     | '/servicios/$slug'
+    | '/servicios'
   id:
     | '__root__'
     | '/'
@@ -131,8 +131,8 @@ export interface FileRouteTypes {
     | '/pagos'
     | '/portafolios'
     | '/quienes-somos'
-    | '/servicios'
     | '/servicios/$slug'
+    | '/servicios/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -143,18 +143,12 @@ export interface RootRouteChildren {
   PagosRoute: typeof PagosRoute
   PortafoliosRoute: typeof PortafoliosRoute
   QuienesSomosRoute: typeof QuienesSomosRoute
-  ServiciosRoute: typeof ServiciosRouteWithChildren
+  ServiciosSlugRoute: typeof ServiciosSlugRoute
+  ServiciosIndexRoute: typeof ServiciosIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/servicios': {
-      id: '/servicios'
-      path: '/servicios'
-      fullPath: '/servicios'
-      preLoaderRoute: typeof ServiciosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/quienes-somos': {
       id: '/quienes-somos'
       path: '/quienes-somos'
@@ -204,27 +198,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/servicios/': {
+      id: '/servicios/'
+      path: '/servicios'
+      fullPath: '/servicios/'
+      preLoaderRoute: typeof ServiciosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/servicios/$slug': {
       id: '/servicios/$slug'
-      path: '/$slug'
+      path: '/servicios/$slug'
       fullPath: '/servicios/$slug'
       preLoaderRoute: typeof ServiciosSlugRouteImport
-      parentRoute: typeof ServiciosRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface ServiciosRouteChildren {
-  ServiciosSlugRoute: typeof ServiciosSlugRoute
-}
-
-const ServiciosRouteChildren: ServiciosRouteChildren = {
-  ServiciosSlugRoute: ServiciosSlugRoute,
-}
-
-const ServiciosRouteWithChildren = ServiciosRoute._addFileChildren(
-  ServiciosRouteChildren,
-)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -234,7 +223,8 @@ const rootRouteChildren: RootRouteChildren = {
   PagosRoute: PagosRoute,
   PortafoliosRoute: PortafoliosRoute,
   QuienesSomosRoute: QuienesSomosRoute,
-  ServiciosRoute: ServiciosRouteWithChildren,
+  ServiciosSlugRoute: ServiciosSlugRoute,
+  ServiciosIndexRoute: ServiciosIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

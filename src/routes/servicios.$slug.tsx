@@ -1,22 +1,22 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { PageHero } from "@/components/PageHero";
-import { useReveal } from "@/hooks/useReveal";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import aboutHero from "@/assets/about-hero.jpg";
+import { ArrowLeft, Check, ChevronRight } from "lucide-react";
 import { getService, services } from "@/data/services";
+import { ImagingPatientGuide } from "@/components/ImagingPatientGuide";
 
 export const Route = createFileRoute("/servicios/$slug")({
   loader: ({ params }) => {
     const service = getService(params.slug);
     if (!service) throw notFound();
-    return { service };
+    return { slug: service.slug };
   },
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.service.title} — Clínica Noé` },
-          { name: "description", content: loaderData.service.summary },
-          { property: "og:title", content: `${loaderData.service.title} — Clínica Noé` },
-          { property: "og:description", content: loaderData.service.summary },
+          { title: `${getService(loaderData.slug)!.title} — Clínica Noé` },
+          { name: "description", content: getService(loaderData.slug)!.summary },
+          { property: "og:title", content: `${getService(loaderData.slug)!.title} — Clínica Noé` },
+          { property: "og:description", content: getService(loaderData.slug)!.summary },
         ]
       : [{ title: "Servicio — Clínica Noé" }],
   }),
@@ -31,117 +31,60 @@ export const Route = createFileRoute("/servicios/$slug")({
   component: ServiceDetailPage,
 });
 
+
 function ServiceDetailPage() {
-  const { service } = Route.useLoaderData();
-  const Icon = service.icon;
-  const intro = useReveal();
-  const list = useReveal(0.1);
-  const related = useReveal(0.1);
-
-  const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
-
+  const { slug } = Route.useParams();
+  const service = getService(slug)!;
+  const sections = [
+    { title: "Nuestro servicio", items: service.highlights },
+    { title: service.infrastructureTitle, items: service.infrastructure },
+    { title: service.specialtiesTitle, items: service.specialties },
+  ];
   return (
     <>
-      <PageHero
-        eyebrow={service.category}
-        title={service.title.split(" ").slice(0, -1).join(" ")}
-        accent={service.title.split(" ").slice(-1)[0]}
-        description={service.summary}
-      />
-
-      <section ref={intro.ref} className="bg-background py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1fr_2fr] lg:items-start">
-          <div className={intro.visible ? "animate-slide-in-left" : "opacity-0"}>
-            <div className="sticky top-28 rounded-[2rem] bg-gradient-brand p-10 text-white shadow-brand">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15 backdrop-blur">
-                <Icon className="h-8 w-8" />
-              </div>
-              <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-white/75">
-                {service.category}
-              </p>
-              <h2 className="mt-2 text-3xl !text-white">{service.title}</h2>
-              <Link
-                to="/servicios"
-                className="mt-8 inline-flex items-center gap-2 rounded-full border-2 border-white/60 px-5 py-2.5 text-xs font-semibold transition-all hover:bg-white hover:text-[#267794]"
-              >
-                <ArrowLeft className="h-3.5 w-3.5" /> Todos los servicios
-              </Link>
-            </div>
-          </div>
-
-          <div className={intro.visible ? "animate-slide-in-right delay-200" : "opacity-0"}>
-            <p className="text-lg leading-relaxed text-muted-foreground">{service.description}</p>
-
-            {service.infrastructure && (
-              <div ref={list.ref} className="mt-12">
-                <h3 className="text-2xl text-[#267794]">{service.infrastructureTitle}</h3>
-                <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-                  {service.infrastructure.map((item, i) => (
-                    <li
-                      key={item}
-                      className={`flex items-start gap-3 rounded-2xl bg-white p-5 shadow-soft hover-lift ${
-                        list.visible ? "animate-fade-in-up" : "opacity-0"
-                      }`}
-                      style={{ animationDelay: `${i * 70}ms` }}
-                    >
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#267794]" />
-                      <span className="text-sm leading-relaxed text-foreground">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {service.specialties && (
-              <div ref={list.ref} className="mt-12">
-                <h3 className="text-2xl text-[#267794]">{service.specialtiesTitle}</h3>
-                <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-                  {service.specialties.map((item, i) => (
-                    <li
-                      key={item}
-                      className={`flex items-start gap-3 rounded-2xl bg-white p-5 shadow-soft hover-lift ${
-                        list.visible ? "animate-fade-in-up" : "opacity-0"
-                      }`}
-                      style={{ animationDelay: `${i * 60}ms` }}
-                    >
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#267794]" />
-                      <span className="text-sm leading-relaxed text-foreground">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
+      <section className="relative isolate overflow-hidden bg-[#0e3a4d] pb-24 pt-36 md:pt-44">
+        <img src={aboutHero} alt="" className="absolute inset-0 -z-20 h-full w-full object-cover" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0e3a4d]/95 to-[#0e3a4d]/80" />
+        <div className="mx-auto max-w-6xl px-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#80cee0]">Nuestros servicios</p>
+          <h1 className="mt-5 break-words text-3xl !text-white sm:text-4xl lg:text-5xl">{service.title}</h1>
+          <p className="mt-6 max-w-3xl text-base leading-relaxed text-white/85 md:text-lg">{service.summary}</p>
         </div>
       </section>
-
-      <section ref={related.ref} className="bg-gradient-soft py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <h2 className={`text-3xl md:text-4xl ${related.visible ? "animate-fade-in-up" : "opacity-0"}`}>
-            Otros <span className="text-gradient-brand">servicios</span>
-          </h2>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {others.map((s, i) => {
-              const OIcon = s.icon;
-              return (
-                <Link
-                  key={s.slug}
-                  to="/servicios/$slug"
-                  params={{ slug: s.slug }}
-                  className={`group rounded-3xl bg-white p-7 shadow-soft hover-lift ${
-                    related.visible ? "animate-fade-in-up" : "opacity-0"
-                  }`}
-                  style={{ animationDelay: `${i * 80}ms` }}
-                >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-brand text-white">
-                    <OIcon className="h-7 w-7" />
-                  </div>
-                  <h3 className="mt-5 text-xl">{s.shortTitle}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{s.summary}</p>
+      <section className="bg-[#f2f8fa] pb-20">
+        <div className="relative -mt-11 mx-auto grid max-w-6xl items-start gap-7 px-6 lg:grid-cols-[minmax(0,3fr)_minmax(250px,1fr)]">
+          <article className="min-w-0 rounded-[1.75rem] border border-border/50 bg-white p-6 shadow-brand sm:p-9">
+            <Link to="/servicios" className="inline-flex items-center gap-2 rounded text-sm text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
+              <ArrowLeft aria-hidden="true" className="h-4 w-4" /> Todos los servicios
+            </Link>
+            <h2 className="mt-8 text-2xl text-primary sm:text-3xl">Acerca del servicio</h2>
+            <p className="mt-5 text-sm leading-8 text-muted-foreground sm:text-base">{service.description}</p>
+            {sections.filter((section) => section.items?.length && !(service.slug === "imagenes-diagnosticas" && section.title === "Nuestro servicio")).map((section) => (
+              <section key={section.title} className="mt-9">
+                <h2 className="text-xl text-primary sm:text-2xl">{section.title}</h2>
+                <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+                  {section.items!.map((item) => (
+                    <li key={item} className="flex items-start gap-3 rounded-2xl bg-[#f2f8fa] p-5 text-sm leading-7">
+                      <Check aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-primary" /><span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+            {service.slug === "imagenes-diagnosticas" && <ImagingPatientGuide />}
+          </article>
+          <aside className="rounded-2xl border border-border/50 bg-white p-6 shadow-brand lg:sticky lg:top-28">
+            <h2 id="service-navigation" className="text-lg text-primary">Nuestros servicios</h2>
+            <nav aria-labelledby="service-navigation" className="mt-5 space-y-2">
+              {services.map((item) => (
+                <Link key={item.slug} to="/servicios/$slug" params={{ slug: item.slug }}
+                  aria-current={item.slug === service.slug ? "page" : undefined}
+                  className={"flex items-center justify-between gap-3 rounded-xl px-3 py-3 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-primary " + (item.slug === service.slug ? "bg-[#e4f3f8] font-semibold text-primary" : "text-muted-foreground hover:bg-[#f2f8fa] hover:text-primary")}>
+                  {item.shortTitle}<ChevronRight aria-hidden="true" className="h-4 w-4 shrink-0" />
                 </Link>
-              );
-            })}
-          </div>
+              ))}
+            </nav>
+          </aside>
         </div>
       </section>
     </>

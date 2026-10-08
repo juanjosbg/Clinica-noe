@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X } from "lucide-react";
+
+import { HeaderActions } from "@/components/HeaderActions";
 
 const navItems = [
   { to: "/quienes-somos" as const, label: "Qui\u00e9nes somos" },
@@ -27,12 +29,12 @@ export function Header() {
           : "bg-transparent py-6"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 sm:px-6">
         <Link to="/" className="group flex items-center">
           <img
             src={scrolled ? "/Logo/Noe.png" : "/Logo/Noe-Blanco.png"}
             alt={"Cl\u00ednica No\u00e9"}
-            className="h-20 w-auto max-w-[300px] transition-transform group-hover:scale-105 md:h-24 md:max-w-[360px]"
+            className="h-12 w-auto max-w-[120px] sm:h-20 sm:max-w-[240px] transition-transform group-hover:scale-105 md:h-24 md:max-w-[360px]"
           />
         </Link>
 
@@ -51,16 +53,12 @@ export function Header() {
           ))}
         </nav>
 
-        <a
-          href="tel:+576063865320"
-          className="hidden items-center gap-2 rounded-full bg-gradient-brand px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-105 lg:flex"
-        >
-          <Phone className="h-4 w-4" />
-          {"L\u00ednea 24/7"}
-        </a>
+        <HeaderActions scrolled={scrolled} />
 
         <button
           aria-label={"Men\u00fa"}
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
           onClick={() => setOpen((v) => !v)}
           className={`rounded-full p-2 lg:hidden ${scrolled ? "text-[#267794]" : "text-white"}`}
         >
@@ -69,7 +67,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="mx-4 mt-3 animate-scale-in rounded-2xl bg-white/95 p-4 shadow-brand backdrop-blur lg:hidden">
+        <div id="mobile-navigation" className="mx-4 mt-3 animate-scale-in rounded-2xl bg-white/95 p-4 shadow-brand backdrop-blur lg:hidden">
           <nav className="flex flex-col gap-1">
             {navItems.map((item) => (
               <Link
@@ -81,12 +79,7 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <a
-              href="tel:+576063865320"
-              className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-gradient-brand px-4 py-3 text-sm font-semibold text-white"
-            >
-              <Phone className="h-4 w-4" /> {"L\u00ednea 24/7"}
-            </a>
+
           </nav>
         </div>
       )}
