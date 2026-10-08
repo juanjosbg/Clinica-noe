@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { HeroCarousel } from "@/components/HeroCarousel";
+import { HomePopup } from "@/components/HomePopup";
 import { useReveal } from "@/hooks/useReveal";
 import { useCountUp } from "@/hooks/useCountUp";
 import {
@@ -34,6 +35,7 @@ const stats: { value: number; suffix: string; label: string; literal?: string }[
 function Index() {
   return (
     <>
+      <HomePopup />
       <HeroCarousel />
       <div className="hidden h-40 lg:block" />
       <Welcome />
