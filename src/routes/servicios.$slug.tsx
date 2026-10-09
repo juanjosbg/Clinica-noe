@@ -71,6 +71,38 @@ function ServiceDetailPage() {
                 </ul>
               </section>
             ))}
+            {service.slug === "consulta-externa" && (
+              <>
+                <section className="mt-9">
+                  <h2 className="text-xl text-primary sm:text-2xl">Direcci?n, l?neas de atenci?n y horarios</h2>
+                  <div className="mt-5 space-y-4 rounded-2xl bg-[#f2f8fa] p-5 text-sm leading-7">
+                    <p><strong>Direcci?n:</strong> Calle 38 n.? 11-73, avenida 30 de Agosto, diagonal a Telemark.</p>
+                    <p><strong>Celular:</strong> <a href="tel:+573009145181" className="text-primary underline">300 914 5181</a><br /><strong>Tel?fono fijo:</strong> <a href="tel:+576023865000" className="text-primary underline">(602) 386 5000</a><br /><strong>L?nea exclusiva de WhatsApp:</strong> <a href="https://wa.me/573166425093" className="text-primary underline">316 642 5093</a></p>
+                    <p><strong>Horarios:</strong><br />Lunes a jueves: 7:00 a. m. a 5:00 p. m.<br />Viernes: 7:00 a. m. a 4:00 p. m.</p>
+                  </div>
+                </section>
+                <section className="mt-9">
+                  <h2 className="text-xl text-primary sm:text-2xl">Recomendaciones para Consulta Externa</h2>
+                  <p className="mt-5 text-sm leading-7 text-muted-foreground">Traiga su orden m?dica. Si viene remitido por una entidad, presente la orden m?dica y la autorizaci?n correspondiente.</p>
+                </section>
+                <section className="mt-9">
+                  <h2 className="text-xl text-primary sm:text-2xl">Terapia f?sica y rehabilitaci?n</h2>
+                  <h3 className="mt-5 text-lg font-semibold text-primary">Recomendaciones generales ? Servicio de Fisioterapia</h3>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">Estimado(a) usuario(a), para garantizar el adecuado desarrollo de sus sesiones de fisioterapia, tenga en cuenta las siguientes recomendaciones:</p>
+                  <ol className="mt-5 list-decimal space-y-4 pl-6 text-sm leading-7 text-muted-foreground">
+                    <li><strong>Puntualidad:</strong> llegue de 10 a 15 minutos antes de la hora programada.</li>
+                    <li><strong>Vestuario:</strong> utilice ropa c?moda y calzado adecuado que facilite la realizaci?n de los ejercicios.</li>
+                    <li><strong>Elementos personales:</strong> traiga una toalla peque?a de uso personal.</li>
+                    <li><strong>Hidrataci?n:</strong> mantenga una adecuada hidrataci?n antes, durante y despu?s de la sesi?n de fisioterapia.</li>
+                    <li><strong>Documentaci?n:</strong> presente su documento de identidad y la orden m?dica. Si viene remitido por una entidad, traiga tambi?n la autorizaci?n correspondiente.</li>
+                    <li><strong>Estado de salud:</strong> informe al fisioterapeuta sobre cualquier dolor, molestia o cambio en su estado de salud antes de iniciar la sesi?n.</li>
+                    <li><strong>Alimentaci?n:</strong> evite asistir en ayunas o inmediatamente despu?s de consumir comidas abundantes.</li>
+                    <li><strong>Acompa?amiento:</strong> asista con un acompa?ante si presenta dificultades para la movilidad o requiere ayuda durante los desplazamientos.</li>
+                  </ol>
+                  <p className="mt-5 text-sm leading-7 text-muted-foreground">Su compromiso y asistencia son fundamentales para el ?xito de su proceso de rehabilitaci?n. ?Gracias por su colaboraci?n!</p>
+                </section>
+              </>
+            )}
             {service.slug === "imagenes-diagnosticas" && <ImagingPatientGuide />}
           </article>
           <aside className="rounded-2xl border border-border/50 bg-white p-6 shadow-brand lg:sticky lg:top-28">

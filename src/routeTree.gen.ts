@@ -9,39 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as QuienesSomosRouteImport } from './routes/quienes-somos'
-import { Route as PortafoliosRouteImport } from './routes/portafolios'
-import { Route as PagosRouteImport } from './routes/pagos'
-import { Route as InternacionalRouteImport } from './routes/internacional'
-import { Route as FinancierosRouteImport } from './routes/financieros'
-import { Route as AtencionRouteImport } from './routes/atencion'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AtencionRouteImport } from './routes/atencion'
+import { Route as FinancierosRouteImport } from './routes/financieros'
+import { Route as InternacionalRouteImport } from './routes/internacional'
+import { Route as PagosRouteImport } from './routes/pagos'
+import { Route as PortafoliosRouteImport } from './routes/portafolios'
+import { Route as QuienesSomosRouteImport } from './routes/quienes-somos'
 import { Route as ServiciosIndexRouteImport } from './routes/servicios.index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
 
-const QuienesSomosRoute = QuienesSomosRouteImport.update({
-  id: '/quienes-somos',
-  path: '/quienes-somos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PortafoliosRoute = PortafoliosRouteImport.update({
-  id: '/portafolios',
-  path: '/portafolios',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PagosRoute = PagosRouteImport.update({
-  id: '/pagos',
-  path: '/pagos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InternacionalRoute = InternacionalRouteImport.update({
-  id: '/internacional',
-  path: '/internacional',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FinancierosRoute = FinancierosRouteImport.update({
-  id: '/financieros',
-  path: '/financieros',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AtencionRoute = AtencionRouteImport.update({
@@ -49,9 +29,29 @@ const AtencionRoute = AtencionRouteImport.update({
   path: '/atencion',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const FinancierosRoute = FinancierosRouteImport.update({
+  id: '/financieros',
+  path: '/financieros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InternacionalRoute = InternacionalRouteImport.update({
+  id: '/internacional',
+  path: '/internacional',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagosRoute = PagosRouteImport.update({
+  id: '/pagos',
+  path: '/pagos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortafoliosRoute = PortafoliosRouteImport.update({
+  id: '/portafolios',
+  path: '/portafolios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuienesSomosRoute = QuienesSomosRouteImport.update({
+  id: '/quienes-somos',
+  path: '/quienes-somos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServiciosIndexRoute = ServiciosIndexRouteImport.update({
@@ -149,39 +149,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/quienes-somos': {
-      id: '/quienes-somos'
-      path: '/quienes-somos'
-      fullPath: '/quienes-somos'
-      preLoaderRoute: typeof QuienesSomosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/portafolios': {
-      id: '/portafolios'
-      path: '/portafolios'
-      fullPath: '/portafolios'
-      preLoaderRoute: typeof PortafoliosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pagos': {
-      id: '/pagos'
-      path: '/pagos'
-      fullPath: '/pagos'
-      preLoaderRoute: typeof PagosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/internacional': {
-      id: '/internacional'
-      path: '/internacional'
-      fullPath: '/internacional'
-      preLoaderRoute: typeof InternacionalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/financieros': {
-      id: '/financieros'
-      path: '/financieros'
-      fullPath: '/financieros'
-      preLoaderRoute: typeof FinancierosRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/atencion': {
@@ -191,11 +163,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AtencionRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/financieros': {
+      id: '/financieros'
+      path: '/financieros'
+      fullPath: '/financieros'
+      preLoaderRoute: typeof FinancierosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/internacional': {
+      id: '/internacional'
+      path: '/internacional'
+      fullPath: '/internacional'
+      preLoaderRoute: typeof InternacionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pagos': {
+      id: '/pagos'
+      path: '/pagos'
+      fullPath: '/pagos'
+      preLoaderRoute: typeof PagosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portafolios': {
+      id: '/portafolios'
+      path: '/portafolios'
+      fullPath: '/portafolios'
+      preLoaderRoute: typeof PortafoliosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quienes-somos': {
+      id: '/quienes-somos'
+      path: '/quienes-somos'
+      fullPath: '/quienes-somos'
+      preLoaderRoute: typeof QuienesSomosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/servicios/': {
