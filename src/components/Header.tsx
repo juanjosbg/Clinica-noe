@@ -8,6 +8,7 @@ const navItems = [
   { to: "/quienes-somos" as const, label: "Qui\u00e9nes somos" },
   { to: "/atencion" as const, label: "Atenci\u00f3n al paciente" },
   { to: "/servicios" as const, label: "Servicios" },
+  { to: "/pqrs" as const, label: "PQRS" },
 ];
 
 export function Header() {

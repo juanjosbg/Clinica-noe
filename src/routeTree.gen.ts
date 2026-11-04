@@ -15,6 +15,7 @@ import { Route as FinancierosRouteImport } from './routes/financieros'
 import { Route as InternacionalRouteImport } from './routes/internacional'
 import { Route as PagosRouteImport } from './routes/pagos'
 import { Route as PortafoliosRouteImport } from './routes/portafolios'
+import { Route as PqrsRouteImport } from './routes/pqrs'
 import { Route as QuienesSomosRouteImport } from './routes/quienes-somos'
 import { Route as ServiciosIndexRouteImport } from './routes/servicios.index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
@@ -49,6 +50,11 @@ const PortafoliosRoute = PortafoliosRouteImport.update({
   path: '/portafolios',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PqrsRoute = PqrsRouteImport.update({
+  id: '/pqrs',
+  path: '/pqrs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuienesSomosRoute = QuienesSomosRouteImport.update({
   id: '/quienes-somos',
   path: '/quienes-somos',
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
   '/portafolios': typeof PortafoliosRoute
+  '/pqrs': typeof PqrsRoute
   '/quienes-somos': typeof QuienesSomosRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/servicios/': typeof ServiciosIndexRoute
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
   '/portafolios': typeof PortafoliosRoute
+  '/pqrs': typeof PqrsRoute
   '/quienes-somos': typeof QuienesSomosRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/servicios': typeof ServiciosIndexRoute
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
   '/portafolios': typeof PortafoliosRoute
+  '/pqrs': typeof PqrsRoute
   '/quienes-somos': typeof QuienesSomosRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
   '/servicios/': typeof ServiciosIndexRoute
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/internacional'
     | '/pagos'
     | '/portafolios'
+    | '/pqrs'
     | '/quienes-somos'
     | '/servicios/$slug'
     | '/servicios/'
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/internacional'
     | '/pagos'
     | '/portafolios'
+    | '/pqrs'
     | '/quienes-somos'
     | '/servicios/$slug'
     | '/servicios'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/internacional'
     | '/pagos'
     | '/portafolios'
+    | '/pqrs'
     | '/quienes-somos'
     | '/servicios/$slug'
     | '/servicios/'
@@ -142,6 +154,7 @@ export interface RootRouteChildren {
   InternacionalRoute: typeof InternacionalRoute
   PagosRoute: typeof PagosRoute
   PortafoliosRoute: typeof PortafoliosRoute
+  PqrsRoute: typeof PqrsRoute
   QuienesSomosRoute: typeof QuienesSomosRoute
   ServiciosSlugRoute: typeof ServiciosSlugRoute
   ServiciosIndexRoute: typeof ServiciosIndexRoute
@@ -191,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortafoliosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pqrs': {
+      id: '/pqrs'
+      path: '/pqrs'
+      fullPath: '/pqrs'
+      preLoaderRoute: typeof PqrsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quienes-somos': {
       id: '/quienes-somos'
       path: '/quienes-somos'
@@ -222,6 +242,7 @@ const rootRouteChildren: RootRouteChildren = {
   InternacionalRoute: InternacionalRoute,
   PagosRoute: PagosRoute,
   PortafoliosRoute: PortafoliosRoute,
+  PqrsRoute: PqrsRoute,
   QuienesSomosRoute: QuienesSomosRoute,
   ServiciosSlugRoute: ServiciosSlugRoute,
   ServiciosIndexRoute: ServiciosIndexRoute,

@@ -1,12 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { HomePopup } from "@/components/HomePopup";
+import * as Dialog from "@radix-ui/react-dialog";
 import { useReveal } from "@/hooks/useReveal";
 import { useCountUp } from "@/hooks/useCountUp";
 import {
   Heart, Activity,
   ShieldCheck, Award, Users, Clock, ArrowRight, BookOpen, MessageCircle,
-  FileText, CalendarCheck, UserCircle2,
+  CalendarCheck, UserCircle2, X,
 } from "lucide-react";
 import { ServiceCard } from "@/components/ServiceCard";
 import { services } from "@/data/services";
@@ -188,7 +189,6 @@ function StatItem({
 function PatientPortal() {
   const { ref, visible } = useReveal(0.15);
   const resources = [
-    { icon: FileText, title: "Resultados de exámenes", desc: "Consulta y descarga tus resultados de laboratorio." },
     { icon: CalendarCheck, title: "Agenda tus citas", desc: "Programa, modifica o cancela tus citas en línea." },
     { icon: UserCircle2, title: "Historia clínica", desc: "Accede a tu información médica de forma segura." },
   ];
@@ -197,22 +197,41 @@ function PatientPortal() {
       <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2 lg:items-center">
         <div className={visible ? "animate-slide-in-left" : "opacity-0"}>
           <div className="grid gap-4 sm:grid-cols-2">
-            {resources.map(({ icon: Icon, title, desc }, i) => (
+            <Dialog.Root>
+              <Dialog.Trigger asChild>
+                <button type="button" aria-label="Ver completo el anuncio de reapertura" className="mx-auto block w-full max-w-[440px] cursor-zoom-in overflow-hidden rounded-3xl bg-white shadow-soft focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:col-span-2">
+              <img
+                src="/images/Comeback.jpeg"
+                alt="¡Hemos vuelto! Clínica Noé vuelve a abrir sus puertas para seguir cuidando de ti."
+                width={1375}
+                height={1600}
+                loading="lazy"
+                className="block h-auto w-full"
+              />
+                </button>
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <Dialog.Overlay className="fixed inset-0 z-[70] bg-[#03172e]/85 backdrop-blur-sm" />
+                <Dialog.Content className="fixed left-1/2 top-1/2 z-[71] w-fit max-w-[calc(100vw-32px)] -translate-x-1/2 -translate-y-1/2 outline-none">
+                  <Dialog.Title className="sr-only">Reapertura de Clínica Noé</Dialog.Title>
+                  <Dialog.Description className="sr-only">Anuncio completo: hemos vuelto para seguir cuidando de ti.</Dialog.Description>
+                  <img src="/images/Comeback.jpeg" alt="Anuncio de reapertura de Clínica Noé: ¡Hemos vuelto!" width={1375} height={1600} className="block max-h-[calc(100dvh-32px)] w-auto max-w-full rounded-2xl object-contain" />
+                  <Dialog.Close aria-label="Cerrar imagen ampliada" className="absolute right-2 top-2 rounded-full bg-[#0e3a4d] p-3 text-white shadow-lg transition hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"><X aria-hidden="true" className="h-5 w-5" /></Dialog.Close>
+                </Dialog.Content>
+              </Dialog.Portal>
+            </Dialog.Root>
+            {resources.map(({ icon: Icon, title, desc }) => (
               <div
                 key={title}
-                className={`rounded-3xl bg-white p-6 shadow-soft hover-lift ${
-                  i === 0 ? "sm:col-span-2 sm:bg-gradient-brand sm:text-white" : ""
-                }`}
+                className="rounded-3xl bg-white p-6 shadow-soft hover-lift"
               >
                 <div
-                  className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
-                    i === 0 ? "bg-white/20 text-white sm:text-white" : "bg-[#b4e3ed]/40 text-[#267794]"
-                  }`}
+                  className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#b4e3ed]/40 text-[#267794]"
                 >
                   <Icon className="h-6 w-6" />
                 </div>
-                <h3 className={`mt-4 text-lg ${i === 0 ? "sm:!text-white" : ""}`}>{title}</h3>
-                <p className={`mt-1 text-sm ${i === 0 ? "sm:text-white/85" : "text-muted-foreground"}`}>
+                <h3 className="mt-4 text-lg">{title}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
                   {desc}
                 </p>
               </div>

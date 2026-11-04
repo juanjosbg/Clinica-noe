@@ -6,6 +6,7 @@ import { ArrowRight, Mail, Phone, Search, X } from "lucide-react";
 import { services } from "@/data/services";
 
 const pages = [
+  { title: "PQRS", description: "Peticiones, quejas, reclamos y sugerencias", to: "/pqrs" as const },
   { title: "Inicio", description: "Clínica Noé", to: "/" as const },
   { title: "Quiénes somos", description: "Nuestra institución", to: "/quienes-somos" as const },
   { title: "Atención al paciente", description: "Contacto, citas y orientación", to: "/atencion" as const },
