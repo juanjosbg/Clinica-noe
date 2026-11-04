@@ -3,6 +3,7 @@ import aboutHero from "@/assets/about-hero.jpg";
 import { ArrowLeft, Check, ChevronRight } from "lucide-react";
 import { getService, services } from "@/data/services";
 import { ImagingPatientGuide } from "@/components/ImagingPatientGuide";
+import { ImagingPopup } from "@/components/ImagingPopup";
 
 export const Route = createFileRoute("/servicios/$slug")({
   loader: ({ params }) => {
@@ -42,6 +43,7 @@ function ServiceDetailPage() {
   ];
   return (
     <>
+      {slug === "imagenes-diagnosticas" && <ImagingPopup />}
       <section className="relative isolate overflow-hidden bg-[#0e3a4d] pb-24 pt-36 md:pt-44">
         <img src={aboutHero} alt="" className="absolute inset-0 -z-20 h-full w-full object-cover" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0e3a4d]/95 to-[#0e3a4d]/80" />

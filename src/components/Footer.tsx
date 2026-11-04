@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { institutionalSections } from "@/data/institutional";
 
 export function Footer() {
   return (
@@ -64,6 +65,14 @@ export function Footer() {
           </ul>
         </div>
       </div>
+
+      <nav aria-label="Información institucional" className="relative mx-auto max-w-7xl border-t border-white/10 px-6 py-8">
+        <Link to="/informacion-institucional" className="text-base font-semibold text-white hover:text-[#80cee0]">Información institucional</Link>
+        <ul className="mt-5 grid gap-x-8 gap-y-3 text-sm text-white/75 sm:grid-cols-2 lg:grid-cols-3">
+          {institutionalSections.map((item) => <li key={item.id}><Link to="/informacion-institucional" hash={item.id} className="hover:text-[#80cee0]">{item.title}</Link></li>)}
+          <li><Link to="/informacion-institucional" hash="vacantes" className="hover:text-[#80cee0]">Vacantes disponibles</Link></li>
+        </ul>
+      </nav>
 
       <div className="relative border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-xs text-white/60 md:flex-row">

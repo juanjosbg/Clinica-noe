@@ -146,7 +146,13 @@ export const services: ServiceDetail[] = [
     shortTitle: "Imágenes Diagnósticas",
     category: "Apoyo diagnóstico",
     icon: ScanLine,
-    highlights: ["Tomografía y resonancia","Rayos X","Radiología intervencionista","Ecografía y Doppler"],
+    highlights: [
+      "Tomografía Axial Computarizada (TAC).",
+      "Resonancia Magnética Nuclear (RMN).",
+      "Rayos X.",
+      "Radiología intervencionista.",
+      "Ecografía y Doppler.",
+    ],
     summary:
       "14 radiólogos y equipos de última tecnología disponibles 24 horas al día.",
     description:

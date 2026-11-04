@@ -9,6 +9,7 @@ const navItems = [
   { to: "/atencion" as const, label: "Atenci\u00f3n al paciente" },
   { to: "/servicios" as const, label: "Servicios" },
   { to: "/pqrs" as const, label: "PQRS" },
+  { to: "/informacion-institucional" as const, label: "Información institucional" },
 ];
 
 export function Header() {
@@ -39,7 +40,7 @@ export function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-4 lg:flex xl:gap-6">
           {navItems.map((item) => (
             <Link
               key={item.to}

@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Popover from "@radix-ui/react-popover";
 import { ArrowRight, Mail, Phone, Search, X } from "lucide-react";
 import { services } from "@/data/services";
+import { appointmentWhatsapp } from "@/data/institutional";
 
 const pages = [
+  { title: "Información institucional", description: "Políticas, sedes, convenios, derechos y deberes, trabaja con nosotros, vacantes, Asociación de Usuarios, historia clínica, WhatsApp", to: "/informacion-institucional" as const },
   { title: "PQRS", description: "Peticiones, quejas, reclamos y sugerencias", to: "/pqrs" as const },
   { title: "Inicio", description: "Clínica Noé", to: "/" as const },
   { title: "Quiénes somos", description: "Nuestra institución", to: "/quienes-somos" as const },
@@ -16,6 +18,7 @@ const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u0
 const resultClass = "flex items-center justify-between gap-4 rounded-xl px-4 py-3 text-sm text-white transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-[#80cee0]";
 
 export function HeaderActions({ scrolled }: { scrolled: boolean }) {
+  const isImaging = useRouterState({ select: (state) => state.location.pathname.replace(/\/$/, "") === "/servicios/imagenes-diagnosticas" });
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const term = normalize(query.trim());
@@ -64,13 +67,14 @@ export function HeaderActions({ scrolled }: { scrolled: boolean }) {
               <Popover.Close aria-label="Cerrar canales de atención" className="absolute right-4 top-5 rounded p-1 text-white/75 hover:text-white focus-visible:outline-2 focus-visible:outline-white"><X aria-hidden="true" className="h-4 w-4" /></Popover.Close>
             </div>
             <div className="space-y-6 p-6">
+              <a href={isImaging ? "https://wa.me/573164781506" : appointmentWhatsapp} target="_blank" rel="noopener noreferrer" className="block rounded-xl bg-primary px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-primary/90">{isImaging ? "WhatsApp Imágenes: 316 478 1506" : "Solicitar cita por WhatsApp"}<span className="sr-only"> (otra pestaña)</span></a>
               <div className="flex items-start gap-3">
                 <span className="rounded-full bg-[#e4f3f8] p-2.5 text-primary"><Phone aria-hidden="true" className="h-4 w-4" /></span>
-                <div><h3 className="text-sm font-semibold">Línea telefónica</h3><a href="tel:+576063865320" className="mt-1 block text-sm text-muted-foreground hover:text-primary hover:underline">PBX (606) 386 5320</a></div>
+                <div><h3 className="text-sm font-semibold">{isImaging ? "Imágenes Diagnósticas" : "Línea telefónica"}</h3><a href={isImaging ? "tel:+573164781506" : "tel:+576063865320"} className="mt-1 block text-sm text-muted-foreground hover:text-primary hover:underline">{isImaging ? "316 478 1506" : "PBX (606) 386 5320"}</a></div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="rounded-full bg-[#e4f3f8] p-2.5 text-primary"><Mail aria-hidden="true" className="h-4 w-4" /></span>
-                <div className="min-w-0"><h3 className="text-sm font-semibold">Atención al paciente</h3><a href="mailto:coor.siau@clinicanoe.com.co" className="mt-1 block break-all text-sm text-muted-foreground hover:text-primary hover:underline">coor.siau@clinicanoe.com.co</a></div>
+                <div className="min-w-0"><h3 className="text-sm font-semibold">{isImaging ? "Correo de Imágenes" : "Atención al paciente"}</h3><a href={isImaging ? "mailto:imagenes@clinicanoe.com.co" : "mailto:coor.siau@clinicanoe.com.co"} className="mt-1 block break-all text-sm text-muted-foreground hover:text-primary hover:underline">{isImaging ? "imagenes@clinicanoe.com.co" : "coor.siau@clinicanoe.com.co"}</a></div>
               </div>
               <p className="rounded-2xl bg-[#f2f8fa] p-4 text-xs leading-6 text-muted-foreground">Comunícate con nuestros canales para solicitar una cita y confirmar la disponibilidad y los horarios de atención.</p>
             </div>

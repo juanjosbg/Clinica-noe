@@ -221,7 +221,7 @@ function PatientPortal() {
               </Dialog.Portal>
             </Dialog.Root>
             {resources.map(({ icon: Icon, title, desc }) => (
-              <div
+              <Link to="/informacion-institucional" hash={title === "Historia clínica" ? "historia-clinica" : "canales"}
                 key={title}
                 className="rounded-3xl bg-white p-6 shadow-soft hover-lift"
               >
@@ -234,7 +234,7 @@ function PatientPortal() {
                 <p className="mt-1 text-sm text-muted-foreground">
                   {desc}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

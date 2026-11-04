@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { appointmentWhatsapp, akilaUrl, currentResultsUrl, institutionalSections } from "@/data/institutional";
 import { PageHero } from "@/components/PageHero";
 import { Calendar, FileText, CreditCard, Phone, MapPin, Clock, Mail, X } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -133,6 +134,7 @@ function Atencion() {
                       <Dialog.Close aria-label="Cerrar canales de atención" className="absolute right-4 top-5 rounded p-2 text-white/75 hover:text-white focus-visible:outline-2 focus-visible:outline-white"><X aria-hidden="true" className="h-4 w-4" /></Dialog.Close>
                     </div>
                     <div className="space-y-6 p-6">
+                      <a href={appointmentWhatsapp} target="_blank" rel="noopener noreferrer" className="block rounded-xl bg-primary px-5 py-3 text-center text-sm font-semibold text-white hover:bg-primary/90">Solicitar cita por WhatsApp<span className="sr-only"> (otra pestaña)</span></a>
                       <div className="flex items-start gap-3">
                         <span className="rounded-full bg-[#e4f3f8] p-2.5 text-primary"><Phone aria-hidden="true" className="h-4 w-4" /></span>
                         <div><h3 className="text-sm font-semibold">Línea telefónica</h3><a href="tel:+576063865320" className="mt-1 block text-sm text-muted-foreground hover:text-primary hover:underline">PBX (606) 386 5320</a></div>
@@ -147,8 +149,15 @@ function Atencion() {
                 </Dialog.Portal>
               </Dialog.Root>
             );
+            if (title === "Portal de resultados") return <a key={title} href={akilaUrl ?? currentResultsUrl} target="_blank" rel="noopener noreferrer" className={`${cardClass} focus-visible:outline-2 focus-visible:outline-primary`} style={{ animationDelay: `${i * 80}ms` }}>{content}<span className="sr-only"> (abre en otra pestaña)</span></a>;
             return <div key={title} className={cardClass} style={{ animationDelay: `${i * 80}ms` }}>{content}</div>;
           })}
+        </div>
+        <div className="mx-auto mt-12 max-w-7xl px-6">
+          <h2 className="text-2xl">Información para tu atención</h2>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {institutionalSections.map((item) => <Link key={item.id} to="/informacion-institucional" hash={item.id} className="rounded-xl border border-border bg-white px-5 py-4 text-sm font-medium text-primary transition hover:bg-[#edf7fa]">{item.title}</Link>)}
+          </div>
         </div>
       </section>
     </>
