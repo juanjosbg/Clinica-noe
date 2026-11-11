@@ -1,8 +1,8 @@
 // Publicar únicamente documentos y datos aprobados por la Clínica.
 export const institutionalDocuments: { id: string; title: string; description: string; url: string | null }[] = [
-  { id: "calidad", title: "Política de Calidad", description: "Promesa de valor institucional.", url: null },
-  { id: "ambiental", title: "Compromiso ambiental", description: "Compromisos institucionales con el cuidado del ambiente.", url: null },
-  { id: "seguridad", title: "Política de Seguridad del Paciente", description: "Lineamientos institucionales para una atención segura.", url: null },
+  { id: "calidad", title: "Política de Calidad", description: "Promesa de valor institucional.", url: "/doc/ACTO%20ADMINISTRATIVO%20GIC-CAL-POL-001%20V1%20POLITICA%20DE%20CALIDAD%20(1).pdf" },
+  { id: "ambiental", title: "Compromiso ambiental", description: "Compromisos institucionales con el cuidado del ambiente.", url: "/doc/ACTO%20ADMINISTRATIVO%20GIC-GAM-POL-001%20V1%20POL%C3%8DTICA%20GESTI%C3%93N%20AMBIENTAL%20(1).pdf" },
+  { id: "seguridad", title: "Política de Seguridad del Paciente", description: "Lineamientos institucionales para una atención segura.", url: "/doc/ACTO%20ADMINISTRATIVO%20GMA-SDP-POL-001%20V2%20POLITICA%20SEGURIDAD%20DEL%20PACIENTE%20(1).pdf" },
   { id: "derechos", title: "Derechos y deberes de los pacientes", description: "Información para pacientes, familias y acompañantes.", url: null },
 ];
 
