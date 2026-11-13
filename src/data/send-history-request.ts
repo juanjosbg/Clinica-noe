@@ -13,7 +13,8 @@ function documentUrl(value: string | undefined) {
   }
 }
 function configuration() {
-  const formUrl = documentUrl(process.env.HISTORY_FORM_URL);
+  const formUrl = documentUrl(process.env.HISTORY_FORM_URL) ??
+    encodeURI("/images/doc/GDC-GDC-FT-001 V5 SOLICITUD DE HISTORIA CLÍNICA (1) (1).pdf");
   const termsUrl = documentUrl(process.env.HISTORY_TERMS_URL);
   const policyUrl = documentUrl(process.env.HISTORY_POLICY_URL);
   return {

@@ -189,30 +189,16 @@ function ClinicalHistoryPage() {
                         aria-describedby={`history-${name}-help`}
                         className="mt-3 block w-full min-w-0 text-xs text-foreground file:mr-3 file:cursor-pointer file:rounded file:border-0 file:bg-primary file:px-3 file:py-2.5 file:text-xs file:font-semibold file:text-white hover:file:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
                       />
-                      {name === "requestDocument" &&
-                        (config.formUrl ? (
+                      {name === "requestDocument" && (
                           <a
                             href={config.formUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-3 inline-flex items-center gap-2 text-xs text-primary underline"
+                            download
+                            className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary underline underline-offset-4 hover:text-primary/80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
                           >
                             <Download aria-hidden="true" className="h-3.5 w-3.5" />
                             Descargar formulario de solicitud
-                            <span className="sr-only"> (abre en otra pestaña)</span>
                           </a>
-                        ) : (
-                          <p className="mt-3 text-xs leading-5 text-muted-foreground">
-                            Solicita el formulario oficial a Servicio al Usuario:{" "}
-                            <a
-                              href="mailto:gestion.documental@clinicanoe.com.co"
-                              className="break-words text-primary underline"
-                            >
-                              gestion.documental@clinicanoe.com.co
-                            </a>
-                            .
-                          </p>
-                        ))}
+                      )}
                     </div>
                   ))}
                 </div>
