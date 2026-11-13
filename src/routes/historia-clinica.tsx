@@ -205,10 +205,10 @@ function ClinicalHistoryPage() {
                           <p className="mt-3 text-xs leading-5 text-muted-foreground">
                             Solicita el formulario oficial a Servicio al Usuario:{" "}
                             <a
-                              href="mailto:coor.siau@clinicanoe.com.co"
+                              href="mailto:gestion.documental@clinicanoe.com.co"
                               className="break-words text-primary underline"
                             >
-                              coor.siau@clinicanoe.com.co
+                              gestion.documental@clinicanoe.com.co
                             </a>
                             .
                           </p>
