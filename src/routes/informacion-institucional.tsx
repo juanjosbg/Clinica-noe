@@ -1,10 +1,13 @@
-import { createFileRoute, Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { createFileRoute, redirect, Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { ArrowUpRight, Download, FileText, Heart, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { InstitutionalCarousel } from "@/components/InstitutionalCarousel";
 import { PageHero } from "@/components/PageHero";
 import { akilaUrl, appointmentWhatsapp, currentResultsUrl, institutionalDocuments, institutionalSections, serviceContacts } from "@/data/institutional";
 
 export const Route = createFileRoute("/informacion-institucional")({
+  beforeLoad: ({ location }) => {
+    if (location.hash === "historia-clinica") throw redirect({ to: "/historia-clinica" });
+  },
   head: () => ({ meta: [{ title: "Información institucional — Clínica Noé" }, { name: "description", content: "Políticas, sedes, derechos y deberes, convenios, oportunidades laborales y canales de atención de Clínica Noé." }] }),
   component: InstitutionalInformation,
 });
@@ -35,7 +38,7 @@ function InstitutionalInformation() {
       <PageHero eyebrow="Información institucional" title="Más cerca" accent="de ti" description="Encuentra información de la Clínica, recursos para tu atención y espacios para participar." />
       <section className="bg-[#f8fafb] py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-6">
-          <InstitutionalCarousel activeId={activeId} onSelect={(id) => { void navigate({ hash: id, replace: true, resetScroll: false, hashScrollIntoView: false }); }} />
+          <InstitutionalCarousel activeId={activeId} onSelect={(id) => { if (id === "historia-clinica") { void navigate({ to: "/historia-clinica" }); return; } void navigate({ hash: id, replace: true, resetScroll: false, hashScrollIntoView: false }); }} />
           <div className="mt-10 grid items-start gap-7 lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-8">
             <aside className="overflow-hidden rounded-2xl border border-[#dceef3] bg-[#edf7fa] lg:sticky lg:top-40">
               <div className="relative h-44 overflow-hidden">
@@ -99,7 +102,6 @@ function InstitutionalInformation() {
                 <a href={appointmentWhatsapp} target="_blank" rel="noopener noreferrer" className={`${actionClass} mt-6`}><MessageCircle aria-hidden="true" className="h-4 w-4" />Solicitar cita de Consulta Externa por WhatsApp<span className="sr-only"> (otra pestaña)</span></a>
               </section>
 
-              <section id="historia-clinica" hidden={activeId !== "historia-clinica"} aria-labelledby="topic-historia-clinica" className={sectionClass}><h2 className="text-2xl">Solicitud de historia clínica</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Para recibir orientación sobre la solicitud de una copia, contacta a Servicio al Usuario. Confirma con el equipo el canal autorizado antes de enviar documentos o información clínica.</p><div className="mt-5 rounded-2xl border border-slate-200 bg-white p-6"><h3 className="text-base font-semibold">Información del procedimiento</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Los requisitos, documentos para pacientes y terceros autorizados, canal de radicación, horarios y tiempos de respuesta están pendientes de confirmación y publicación institucional.</p></div><a href="mailto:coor.siau@clinicanoe.com.co?subject=Orientaci%C3%B3n%20para%20solicitar%20historia%20cl%C3%ADnica" className={`${actionClass} mt-5`}><Mail aria-hidden="true" className="h-4 w-4" />Consultar el procedimiento</a></section>
             </div>
           </div>
         </div>

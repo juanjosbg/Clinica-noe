@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AtencionRouteImport } from './routes/atencion'
 import { Route as FinancierosRouteImport } from './routes/financieros'
+import { Route as HistoriaClinicaRouteImport } from './routes/historia-clinica'
 import { Route as InformacionInstitucionalRouteImport } from './routes/informacion-institucional'
 import { Route as InternacionalRouteImport } from './routes/internacional'
 import { Route as PagosRouteImport } from './routes/pagos'
@@ -34,6 +35,11 @@ const AtencionRoute = AtencionRouteImport.update({
 const FinancierosRoute = FinancierosRouteImport.update({
   id: '/financieros',
   path: '/financieros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoriaClinicaRoute = HistoriaClinicaRouteImport.update({
+  id: '/historia-clinica',
+  path: '/historia-clinica',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InformacionInstitucionalRoute =
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/atencion': typeof AtencionRoute
   '/financieros': typeof FinancierosRoute
+  '/historia-clinica': typeof HistoriaClinicaRoute
   '/informacion-institucional': typeof InformacionInstitucionalRoute
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/atencion': typeof AtencionRoute
   '/financieros': typeof FinancierosRoute
+  '/historia-clinica': typeof HistoriaClinicaRoute
   '/informacion-institucional': typeof InformacionInstitucionalRoute
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/atencion': typeof AtencionRoute
   '/financieros': typeof FinancierosRoute
+  '/historia-clinica': typeof HistoriaClinicaRoute
   '/informacion-institucional': typeof InformacionInstitucionalRoute
   '/internacional': typeof InternacionalRoute
   '/pagos': typeof PagosRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/'
     | '/atencion'
     | '/financieros'
+    | '/historia-clinica'
     | '/informacion-institucional'
     | '/internacional'
     | '/pagos'
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/'
     | '/atencion'
     | '/financieros'
+    | '/historia-clinica'
     | '/informacion-institucional'
     | '/internacional'
     | '/pagos'
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/'
     | '/atencion'
     | '/financieros'
+    | '/historia-clinica'
     | '/informacion-institucional'
     | '/internacional'
     | '/pagos'
@@ -164,6 +176,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AtencionRoute: typeof AtencionRoute
   FinancierosRoute: typeof FinancierosRoute
+  HistoriaClinicaRoute: typeof HistoriaClinicaRoute
   InformacionInstitucionalRoute: typeof InformacionInstitucionalRoute
   InternacionalRoute: typeof InternacionalRoute
   PagosRoute: typeof PagosRoute
@@ -195,6 +208,13 @@ declare module '@tanstack/react-router' {
       path: '/financieros'
       fullPath: '/financieros'
       preLoaderRoute: typeof FinancierosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/historia-clinica': {
+      id: '/historia-clinica'
+      path: '/historia-clinica'
+      fullPath: '/historia-clinica'
+      preLoaderRoute: typeof HistoriaClinicaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/informacion-institucional': {
@@ -260,6 +280,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AtencionRoute: AtencionRoute,
   FinancierosRoute: FinancierosRoute,
+  HistoriaClinicaRoute: HistoriaClinicaRoute,
   InformacionInstitucionalRoute: InformacionInstitucionalRoute,
   InternacionalRoute: InternacionalRoute,
   PagosRoute: PagosRoute,

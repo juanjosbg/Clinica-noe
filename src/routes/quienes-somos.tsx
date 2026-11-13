@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/PageHero";
 import { useReveal } from "@/hooks/useReveal";
-import { Target, Eye, HandHeart, Scale, Users, Handshake, HeartHandshake } from "lucide-react";
+import { institutionalDocuments } from "@/data/institutional";
+import { Target, Eye, HandHeart, Scale, Users, Handshake, HeartHandshake, FileText, ArrowUpRight, BadgeCheck, Leaf, ShieldCheck } from "lucide-react";
 
 export const Route = createFileRoute("/quienes-somos")({
   head: () => ({
@@ -36,7 +37,49 @@ function QuienesSomos() {
       <Intro />
       <MissionVision />
       <Values />
+      <Policies />
     </>
+  );
+}
+
+function Policies() {
+  const { ref, visible } = useReveal<HTMLElement>(0.08, { once: true });
+  const icons = { calidad: BadgeCheck, ambiental: Leaf, seguridad: ShieldCheck };
+  return (
+    <section ref={ref} id="politicas" aria-labelledby="policies-title" className="relative isolate scroll-mt-44 overflow-hidden bg-[#f4f9fb] py-24">
+      <div aria-hidden="true" className="pointer-events-none absolute -right-32 -top-40 -z-10 h-96 w-96 rounded-full bg-[#b4e3ed]/30 blur-3xl" />
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#267794]/15 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary"><FileText aria-hidden="true" className="h-4 w-4" />Compromiso institucional</span>
+          <h2 id="policies-title" className="mt-5 text-4xl md:text-5xl">Nuestras <span className="text-gradient-brand">políticas</span></h2>
+          <p className="mt-5 leading-7 text-muted-foreground">Compromisos que guían nuestra forma de cuidar. Consulta los documentos que respaldan una atención segura, responsable y de calidad.</p>
+        </div>
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          {institutionalDocuments.filter((document) => ["calidad", "ambiental", "seguridad"].includes(document.id)).map((document, index) => {
+            const Icon = icons[document.id as keyof typeof icons];
+            return (
+            <div key={document.id} className={`motion-reduce:!opacity-100 motion-reduce:!animate-none ${visible ? "animate-fade-in-up" : "opacity-0"}`} style={{ animationDelay: `${index * 130}ms` }}>
+            <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-[#dce9ee] bg-white p-8 shadow-soft transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1.5 hover:border-[#9fcbd8] hover:shadow-xl motion-reduce:transform-none motion-reduce:transition-none">
+              <div aria-hidden="true" className={`absolute inset-x-0 top-0 h-1 ${document.id === "ambiental" ? "bg-[#579572]" : document.id === "seguridad" ? "bg-[#7184b0]" : "bg-[#267794]"}`} />
+              <div className="flex items-center justify-between">
+                <div className={`flex h-16 w-16 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105 motion-reduce:transform-none ${document.id === "ambiental" ? "bg-[#eaf6ef] text-[#39765a]" : document.id === "seguridad" ? "bg-[#edf0fa] text-[#596c9c]" : "bg-[#e8f5fb] text-[#267794]"}`}><Icon aria-hidden="true" className="h-8 w-8" strokeWidth={1.5} /></div>
+                <span className="text-xs font-medium uppercase tracking-widest text-slate-400">Documento PDF</span>
+              </div>
+              <h3 className="mt-7 text-xl leading-snug sm:text-2xl">
+                <a href={document.url!} target="_blank" rel="noopener noreferrer" className="rounded-sm hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                  {document.title}<span className="sr-only"> (PDF, otra pestaña)</span>
+                </a>
+              </h3>
+              <p className="mb-8 mt-3 text-sm leading-7 text-muted-foreground">{document.description}</p>
+              <div className="mt-auto flex flex-wrap items-center gap-4 border-t border-slate-100 pt-5 text-sm font-medium text-primary">
+                <a href={document.url!} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 rounded-full bg-[#0e3a4d] px-5 py-3 text-white transition-colors hover:bg-[#267794] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Consultar PDF<ArrowUpRight aria-hidden="true" className="h-4 w-4" /><span className="sr-only"> (otra pestaña)</span></a>
+              </div>
+            </article>
+            </div>
+          ); })}
+        </div>
+      </div>
+    </section>
   );
 }
 

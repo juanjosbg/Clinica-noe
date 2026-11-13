@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
+import { sendPqrs } from "@/data/send-pqrs";
 import { ArrowRight, ChevronDown, Mail, MessageSquare, Phone } from "lucide-react";
 
 export const Route = createFileRoute("/pqrs")({
@@ -7,25 +8,41 @@ export const Route = createFileRoute("/pqrs")({
   component: Pqrs,
 });
 
-const types = ["Petición", "Queja", "Reclamo", "Sugerencia", "Felicitación"];
+const types = ["Petición", "Queja", "Reclamo", "Sugerencia", "Felicitación"] as const;
 const inputClass = "mt-2 block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-[#267794] focus:ring-2 focus:ring-[#267794]/10";
 
 function Pqrs() {
-  const [kind, setKind] = useState("Petición");
-  const [prepared, setPrepared] = useState(false);
+  const [kind, setKind] = useState<(typeof types)[number]>("Petición");
+  const [sending, setSending] = useState(false);
+  const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null);
+  const submitting = useRef(false);
 
-  function prepareEmail(event: FormEvent<HTMLFormElement>) {
+  async function submitMessage(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const fields = [
-      ["Nombre", "nombre"], ["Correo", "correo"], ["Teléfono", "telefono"],
-      ["Documento", "documento"], ["Municipio", "municipio"], ["EPS / aseguradora", "eps"],
-      ["Servicio", "servicio"],
-    ];
-    const details = fields.filter(([, key]) => data.get(key)).map(([label, key]) => `${label}: ${data.get(key)}`).join("\n");
-    const body = `${kind}\n\n${details}\n\nMensaje:\n${data.get("mensaje")}\n\nAutorizo el uso de mis datos para gestionar y responder esta solicitud.`;
-    window.location.href = `mailto:coor.siau@clinicanoe.com.co?subject=${encodeURIComponent(`PQRS · ${kind}`)}&body=${encodeURIComponent(body)}`;
-    setPrepared(true);
+    if (submitting.current) return;
+    const form = event.currentTarget;
+    const values = Object.fromEntries(new FormData(form));
+    if (values.consentimiento !== "on") return;
+    submitting.current = true;
+    setSending(true);
+    setResult(null);
+    try {
+      const response = await sendPqrs({ data: {
+        tipo: kind,
+        nombre: String(values.nombre ?? ""), correo: String(values.correo ?? ""),
+        telefono: String(values.telefono ?? ""), documento: String(values.documento ?? ""),
+        municipio: String(values.municipio ?? ""), eps: String(values.eps ?? ""),
+        servicio: String(values.servicio ?? ""), mensaje: String(values.mensaje ?? ""),
+        consentimiento: "on",
+      } });
+      setResult(response);
+      if (response.ok) { form.reset(); setKind("Petici\u00f3n"); }
+    } catch {
+      setResult({ ok: false, message: "No pudimos confirmar el env\u00edo. Intenta m\u00e1s tarde o contacta a Servicio al Usuario." });
+    } finally {
+      submitting.current = false;
+      setSending(false);
+    }
   }
 
   return (
@@ -53,13 +70,13 @@ function Pqrs() {
             </div>
           </aside>
 
-          <form onSubmit={prepareEmail} className="min-w-0 rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-10">
+          <form onSubmit={submitMessage} className="min-w-0 rounded-2xl border border-slate-200/80 bg-white p-6 sm:p-10">
             <fieldset>
               <legend className="text-lg font-semibold text-[#0e3a4d]">¿Qué quieres compartir?</legend>
               <div className="mt-5 flex flex-wrap gap-2">
                 {types.map((type) => (
                   <label key={type} className="cursor-pointer">
-                    <input className="peer sr-only" type="radio" name="tipo" value={type} checked={kind === type} onChange={() => { setKind(type); setPrepared(false); }} />
+                    <input className="peer sr-only" type="radio" name="tipo" value={type} checked={kind === type} onChange={() => { setKind(type); setResult(null); }} />
                     <span className="block rounded-full border border-slate-200 px-4 py-2.5 text-sm text-slate-600 transition hover:border-[#267794] peer-checked:border-[#267794] peer-checked:bg-[#edf7fa] peer-checked:text-[#267794] peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#267794]">{type}</span>
                   </label>
                 ))}
@@ -87,15 +104,14 @@ function Pqrs() {
             </details>
 
             <label className="mt-8 block text-sm font-medium" htmlFor="pqrs-message">Cuéntanos tu experiencia *<textarea id="pqrs-message" name="mensaje" required minLength={10} maxLength={3000} rows={6} placeholder="Describe tu solicitud. Si aplica, incluye la fecha y el servicio en el que recibiste atención." className={`${inputClass} resize-y`} /></label>
-            <p className="mt-2 text-xs leading-5 text-slate-500">Si necesitas adjuntar documentos, podrás agregarlos desde tu aplicación de correo.</p>
 
             <label className="mt-7 flex items-start gap-3 text-sm leading-6 text-slate-600"><input type="checkbox" name="consentimiento" required className="mt-1 h-4 w-4 shrink-0 accent-[#267794]" /><span>Autorizo el uso de mis datos de contacto para gestionar y responder esta solicitud. *</span></label>
 
             <div className="mt-8 flex flex-col gap-4 border-t border-slate-100 pt-6 sm:flex-row sm:items-center sm:justify-between">
-              <p className="max-w-xs text-xs leading-5 text-slate-500">Se abrirá tu aplicación de correo con el mensaje preparado. Envíalo desde allí para completar tu solicitud.</p>
-              <button type="submit" className="inline-flex shrink-0 items-center justify-center gap-3 rounded-full bg-[#267794] px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#1e6179] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#267794]">Preparar correo<ArrowRight aria-hidden="true" className="h-4 w-4" /></button>
+              <p className="max-w-xs text-xs leading-5 text-slate-500">Tu solicitud se enviará directamente a Servicio al Usuario.</p>
+              <button type="submit" disabled={sending} className="inline-flex shrink-0 items-center justify-center gap-3 rounded-full bg-[#267794] px-6 py-3.5 text-sm font-semibold text-white transition disabled:cursor-wait disabled:opacity-60 hover:bg-[#1e6179] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#267794]">{sending ? "Enviando..." : "Enviar solicitud"}<ArrowRight aria-hidden="true" className="h-4 w-4" /></button>
             </div>
-            {prepared && <p role="status" className="mt-5 rounded-xl bg-[#edf7fa] p-4 text-sm leading-6 text-[#267794]">Tu mensaje está preparado, pero aún no se ha enviado. Confirma el envío en tu aplicación de correo. Si no se abrió, escribe a coor.siau@clinicanoe.com.co.</p>}
+            {result && <p role={result.ok ? "status" : "alert"} className={`mt-5 rounded-xl p-4 text-sm leading-6 ${result.ok ? "bg-[#edf7fa] text-[#267794]" : "bg-red-50 text-red-800"}`}>{result.message}</p>}
           </form>
         </div>
       </section>

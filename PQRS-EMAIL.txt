@@ -1,0 +1,15 @@
+﻿PQRS: envio desde el servidor
+
+1. Crear una clave de envio en Resend y verificar el dominio remitente.
+2. Copiar .env.example a .env.local y completar RESEND_API_KEY y PQRS_MAIL_FROM.
+   PQRS_MAIL_FROM debe ser una direccion del dominio verificado.
+3. Reiniciar el servidor de desarrollo. En produccion configurar estas mismas
+   variables en el servidor y ejecutar el servidor de TanStack Start.
+   Un hosting que sirva solamente los archivos estaticos no ejecuta esta funcion.
+4. Probar con una solicitud identificada como prueba y confirmar su recepcion en
+   coor.siau@clinicanoe.com.co. La confirmacion de la web indica que el proveedor
+   acepto el envio, no garantiza la entrega en la bandeja de entrada.
+
+Nunca usar VITE_ para las claves ni subir .env.local al repositorio.
+No hay adjuntos en este formulario. No se han enviado correos de prueba.
+Documentacion: https://resend.com/docs/api-reference/emails/send-email

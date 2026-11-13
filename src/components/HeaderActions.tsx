@@ -7,6 +7,7 @@ import { services } from "@/data/services";
 import { appointmentWhatsapp } from "@/data/institutional";
 
 const pages = [
+  { title: "Historia clínica", description: "Solicitud de copia y orientación de Servicio al Usuario", to: "/historia-clinica" as const },
   { title: "Información institucional", description: "Políticas, sedes, convenios, derechos y deberes, trabaja con nosotros, vacantes, Asociación de Usuarios, historia clínica, WhatsApp", to: "/informacion-institucional" as const },
   { title: "PQRS", description: "Peticiones, quejas, reclamos y sugerencias", to: "/pqrs" as const },
   { title: "Inicio", description: "Clínica Noé", to: "/" as const },
